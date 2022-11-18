@@ -6,8 +6,32 @@
 // - describe what you did to take this project "above and beyond"
 
 
-const ROWS = 40;
-const COLS = 40;
+class Bullet {
+  constructor(bulletArr, character, img){
+    this.character = character;
+    this.x = this.character.x + this.character.width;
+    this.y = this.character.y + this.character.height/2;
+    this.img = img;
+    this.bulletArr = bulletArr;
+  }
+
+  display(){
+    image(this.img, this.x, this.y, this.img.width*0.1, this.img.height*0.1);
+  }
+
+  update(){
+    this.x += 5;
+
+    if (this.x > windowWidth){
+      this.bulletArr.splice(this.bulletArr.indexOf(this), 1);
+    }
+  }
+
+}
+
+
+const ROWS = 30;
+const COLS = 30;
 let grid;
 let cellWidth;
 let cellHeight;
@@ -18,8 +42,16 @@ let grassImg;
 let survivorImg;
 let knifeGif;
 let reloadGif;
-let bullets;
+let bulletImg;
 let muzzle;
+
+let bulletArr = [];
+let rectangle = {
+  x: 100,
+  y: 100,
+  width: 100,
+  height: 100
+}
 
 
 function setup() {
@@ -37,17 +69,30 @@ function preload(){
   survivorImg = loadImage("survivor.png");
   knifeGif = loadImage("knife.gif");
   reloadGif = loadImage("reload.gif");
-  bullets = loadImage("bullet.png");
+  bulletImg = loadImage("bullet.png");
   muzzle = loadImage("muzzle.png");
 }
 
 function draw() {
   background(220);
   displayGrid(grid);
+  rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+  for (let i = 0; i< bulletArr.length; i++){
+    bulletArr[i].display();
+    bulletArr[i].update();
+  }
+
+  
+
+
+  
 }
 
 function keyPressed() {
   if (keyCode === " "){
+    bulletArr.push(new Bullet(bulletArr, rectangle, bulletImg));
+  }
+  if (keyCode === "g"){
     knifeGif.play();
   }
   if (keyCode === RIGHT_ARROW) {
