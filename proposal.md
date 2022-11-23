@@ -3,7 +3,7 @@
 Put a description of what you're going to do here...
 
 ## Needs To Have List
-- 2 characters
+- 2 characters || one character and monsters
 - charactesr able to attack
 - pick up ammo
 
@@ -17,4 +17,3 @@ Put a description of what you're going to do here...
 - death animation
 - dynamite
 - monsters
-- 
