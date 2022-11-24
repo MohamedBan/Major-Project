@@ -4,6 +4,30 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
+class Bullet{
+  constructor(bulletArr, character, img){
+    this.character = character;
+    this.x = this.character.x + this.character.width;
+    this.y = this.character.y + this.character.height/2;
+    this.img = img;
+    this.bulletArr = bulletArr;
+  }
+
+  display(){
+    image(this.img, this.x, this.y, this.imgwidth, this.img.height);
+  }
+
+  update(){
+
+    this.x +=5;
+
+    if (this.x > windowWidth){
+      this.bulletArr.splice(this.bulletArr.indexOf(this), 1);
+    }
+  }
+}
+
+
 
 
 const ROWS = 30;
@@ -13,6 +37,8 @@ let cellWidth;
 let cellHeight;
 let playerX = 0;
 let playerY = 0;
+let rectX= 0;
+let rectY = 0;
 let stoneImg;
 let grassImg;
 let survivorImg;
@@ -27,6 +53,7 @@ let rectangle = {
   y: 100,
   width: 100,
   height: 100
+
 };
 
 
@@ -37,6 +64,8 @@ function setup() {
   grid = createRandom2dArray(COLS, ROWS);
   //place player in grid
   grid[playerY][playerX] = 9;
+  grid[rectY][rectX] = 9;
+
 }
 
 function preload(){
@@ -53,20 +82,37 @@ function draw() {
   background(220);
   displayGrid(grid);
   rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-  for (let i = 0; i< bulletArr.length; i++){
+  for (let i = 0; i < bulletArr.length; i++){
     bulletArr[i].display();
     bulletArr[i].update();
   }
 
+  inputHandler();
   
 
 
   
 }
 
+function inputHandler(){
+  if (keyIsDown(87)){
+    rectangle.y -= 5;
+  }
+  if (keyIsDown(83)){
+    rectangle.y += 5;
+  }
+  if (keyIsDown(65)){
+    rectangle.x -= 5;
+  }
+  if (keyIsDown(68)){
+    rectangle.x += 5;
+  }
+}
+
+
+
 function keyPressed() {
-  if (keyCode === " "){
-    // eslint-disable-next-line no-undef
+  if (key === " "){
     bulletArr.push(new Bullet(bulletArr, rectangle, bulletImg));
   }
   if (keyCode === "g"){
@@ -74,53 +120,75 @@ function keyPressed() {
   }
   if (keyCode === RIGHT_ARROW) {
     if (grid[playerY][playerX+1] === 0) {
-      //reset old location to white
       grid[playerY][playerX] = 0;
       
-      //move
+      
       playerX++;
-
-      //set new player location
       grid[playerY][playerX] = 9;
+    }
+
+    //moving rectangle with character
+    if (grid[rectY][rectX+1] === 0) {
+      
+      grid[rectY][rectX] = 0;  
+      
+      rectX++;  
+      grid[rectY][rectX] = 9;
     }
   }
 
   if (keyCode === LEFT_ARROW) {
     if (grid[playerY][playerX-1] === 0) {
-      //reset old location to white
       grid[playerY][playerX] = 0;
       
-      //move
+      
       playerX--;
-
-      //set new player location
       grid[playerY][playerX] = 9;
+    }
+    if (grid[rectY][rectX-1] === 0) {
+      grid[rectY][rectX] = 0;
+      
+      
+      playerX--;
+      grid[rectY][rectX] = 9;
     }
   }
 
+
+
   if (keyCode === UP_ARROW) {
     if (grid[playerY-1][playerX] === 0) {
-      //reset old location to white
       grid[playerY][playerX] = 0;
       
-      //move
+      
       playerY--;
-
-      //set new player location
       grid[playerY][playerX] = 9;
+    }
+
+    if (grid[rectY-1][rectX] === 0) {
+      grid[rectY][rectX] = 0;
+      
+      
+      rectY--;
+      grid[rectY][rectX] = 9;
     }
   }
 
   if (keyCode === DOWN_ARROW) {
     if (grid[playerY+1][playerX] === 0) {
-      //reset old location to white
-      grid[playerY][playerX] = 0;
-      
-      //move
-      playerY++;
 
-      //set new player location
+      grid[playerY][playerX] = 0;
+
+      playerY++;
       grid[playerY][playerX] = 9;
+    }
+
+    if (grid[rectY+1][rectX] === 0) {
+
+      grid[rectY][rectX] = 0;
+
+      rectY++;
+      grid[rectY][rectX] = 9;
     }
   }
 }
@@ -149,6 +217,7 @@ function displayGrid(grid) {
       }
       else if (grid[y][x] === 9) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        rect(rectangle.x, rectangle.y, x *cellWidth, rectangle.height)
         image(survivorImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         
       }

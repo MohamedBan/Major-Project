@@ -10,7 +10,7 @@ Put a description of what you're going to do here...
 ## Nice To Have List
 
 - sound
-- multiplayer
+- multiplayer(express js, websockets)
 - loot chest
 - loading screen
 - health bar
