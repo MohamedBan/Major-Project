@@ -127,14 +127,7 @@ function keyPressed() {
       grid[playerY][playerX] = 9;
     }
 
-    //moving rectangle with character
-    if (grid[rectY][rectX+1] === 0) {
-      
-      grid[rectY][rectX] = 0;  
-      
-      rectX++;  
-      grid[rectY][rectX] = 9;
-    }
+  
   }
 
   if (keyCode === LEFT_ARROW) {
@@ -145,13 +138,7 @@ function keyPressed() {
       playerX--;
       grid[playerY][playerX] = 9;
     }
-    if (grid[rectY][rectX-1] === 0) {
-      grid[rectY][rectX] = 0;
-      
-      
-      playerX--;
-      grid[rectY][rectX] = 9;
-    }
+    
   }
 
 
@@ -165,13 +152,7 @@ function keyPressed() {
       grid[playerY][playerX] = 9;
     }
 
-    if (grid[rectY-1][rectX] === 0) {
-      grid[rectY][rectX] = 0;
-      
-      
-      rectY--;
-      grid[rectY][rectX] = 9;
-    }
+    
   }
 
   if (keyCode === DOWN_ARROW) {
@@ -183,13 +164,7 @@ function keyPressed() {
       grid[playerY][playerX] = 9;
     }
 
-    if (grid[rectY+1][rectX] === 0) {
-
-      grid[rectY][rectX] = 0;
-
-      rectY++;
-      grid[rectY][rectX] = 9;
-    }
+  
   }
 }
 
@@ -217,7 +192,6 @@ function displayGrid(grid) {
       }
       else if (grid[y][x] === 9) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        rect(rectangle.x, rectangle.y, x *cellWidth, rectangle.height)
         image(survivorImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         
       }
