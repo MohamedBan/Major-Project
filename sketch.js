@@ -4,32 +4,6 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-class Bullet{
-  constructor(bulletArr, character, img){
-    this.character = character;
-    this.x = this.character.x + this.character.width;
-    this.y = this.character.y + this.character.height/2;
-    this.img = img;
-    this.bulletArr = bulletArr;
-  }
-
-  display(){
-    image(this.img, this.x, this.y, this.imgwidth, this.img.height);
-  }
-
-  update(){
-
-    this.x +=5;
-
-    if (this.x > windowWidth){
-      this.bulletArr.splice(this.bulletArr.indexOf(this), 1);
-    }
-  }
-}
-
-
-
-
 const ROWS = 30;
 const COLS = 30;
 let grid;
@@ -46,15 +20,11 @@ let knifeGif;
 let reloadGif;
 let bulletImg;
 let muzzle;
+let player1;
 
-let bulletArr = [];
-let rectangle = {
-  x: 100,
-  y: 100,
-  width: 100,
-  height: 100
+let bulletArray = [];
 
-};
+
 
 
 function setup() {
@@ -64,7 +34,7 @@ function setup() {
   grid = createRandom2dArray(COLS, ROWS);
   //place player in grid
   grid[playerY][playerX] = 9;
-  grid[rectY][rectX] = 9;
+  player1 = new character(COLS, ROWS, survivorImg);
 
 }
 
@@ -76,45 +46,100 @@ function preload(){
   reloadGif = loadImage("reload.gif");
   bulletImg = loadImage("bullet.png");
   muzzle = loadImage("muzzle.png");
+
 }
 
 function draw() {
   background(220);
   displayGrid(grid);
-  rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-  for (let i = 0; i < bulletArr.length; i++){
-    bulletArr[i].display();
-    bulletArr[i].update();
-  }
-
-  inputHandler();
   
+ 
 
 
   
 }
 
-function inputHandler(){
-  if (keyIsDown(87)){
-    rectangle.y -= 5;
+class character {
+  constructor(x, y, theImage) {
+    this.x = x;
+    this.y = y;
+    this.theImage = theImage;
+    this.dx = 5;
+    this.dy = 5;
   }
-  if (keyIsDown(83)){
-    rectangle.y += 5;
+
+  update() {
+    if (keyIsDown(87)) {
+      this.y -= this.dy;
+    }
+    if (keyIsDown(83)) {
+      this.y += this.dy;
+    }
+    if (keyIsDown(68)) {
+      this.x += this.dx;
+    }
+    if (keyIsDown(65)) {
+      this.x -= this.dx;
+    }
+
+    for (let i=bulletArray.length-1; i > 0; i--){
+      bulletArray[i].update();
+      bulletArray[i].display();
+      if (bulletArray[i].isOffScreen()){
+        bulletArray.splice(i, 1);
+      }
+    }
+
+    
   }
-  if (keyIsDown(65)){
-    rectangle.x -= 5;
-  }
-  if (keyIsDown(68)){
-    rectangle.x += 5;
+
+  display() {
+    image( this.x, this.y, this.theImage);
   }
 }
+
+class Bullet {
+  constructor(x, y, dx, dy, theImage) {
+    // define the variables needed for the bullet here
+    this.x = x;
+    this.y = y;
+    this.dx = dx;
+    this.dy = dy;
+    this.theImage = theImage;
+
+  }
+
+  update() {
+    // what does the bullet need to do during each frame? how do we know if it is off screen?
+    this.x += this.dx;
+    // if (isOffScreen){
+
+    // }
+    
+  }
+
+  display() {
+    // show the bullet
+    image(this.theImage, this.x, this. y);
+  }
+
+  isOffScreen() {
+    // check if the bullet is still on the screen
+    return this.x >= windowWidth;
+  }
+}
+
+
+
 
 
 
 function keyPressed() {
-  if (key === " "){
-    bulletArr.push(new Bullet(bulletArr, rectangle, bulletImg));
+  if (key === " ") {
+    let someBullet = new Bullet(this.x + 38, this.y, 0, -5, bulletImg);
+    bulletArray.push(someBullet);
   }
+
   if (keyCode === "g"){
     knifeGif.play();
   }
@@ -192,7 +217,8 @@ function displayGrid(grid) {
       }
       else if (grid[y][x] === 9) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        image(survivorImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        player1.update();
+        player1.display();
         
       }
     }
