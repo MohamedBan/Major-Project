@@ -34,7 +34,9 @@ function setup() {
   grid = createRandom2dArray(COLS, ROWS);
   //place player in grid
   grid[playerY][playerX] = 9;
-  player1 = new character(COLS, ROWS, survivorImg);
+  player1 = new character(playerY, playerX, survivorImg);
+        
+  
 
 }
 
@@ -70,16 +72,40 @@ class character {
 
   update() {
     if (keyIsDown(87)) {
-      this.y -= this.dy;
+      if (grid[playerY-1][playerX] === 0) {
+        grid[playerY][playerX] = 0;
+        
+        
+        playerY--;
+        grid[playerY][playerX] = 9;
+      }
     }
     if (keyIsDown(83)) {
-      this.y += this.dy;
+      if (grid[playerY+1][playerX] === 0) {
+
+        grid[playerY][playerX] = 0;
+  
+        playerY++;
+        grid[playerY][playerX] = 9;
+      }
     }
     if (keyIsDown(68)) {
-      this.x += this.dx;
+      if (grid[playerY][playerX+1] === 0) {
+        grid[playerY][playerX] = 0;
+        
+        
+        playerX++;
+        grid[playerY][playerX] = 9;
+      }
     }
     if (keyIsDown(65)) {
-      this.x -= this.dx;
+      if (grid[playerY][playerX-1] === 0) {
+        grid[playerY][playerX] = 0;
+        
+        
+        playerX--;
+        grid[playerY][playerX] = 9;
+      }
     }
 
     for (let i=bulletArray.length-1; i > 0; i--){
@@ -94,7 +120,7 @@ class character {
   }
 
   display() {
-    image( this.x, this.y, this.theImage);
+    image(this.theImage, this.x*cellWidth, this.y*cellHeight, cellWidth, cellHeight);
   }
 }
 
@@ -138,6 +164,7 @@ function keyPressed() {
   if (key === " ") {
     let someBullet = new Bullet(this.x + 38, this.y, 0, -5, bulletImg);
     bulletArray.push(someBullet);
+    
   }
 
   if (keyCode === "g"){
@@ -217,8 +244,10 @@ function displayGrid(grid) {
       }
       else if (grid[y][x] === 9) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        player1.update();
         player1.display();
+        player1.update();
+        
+      
         
       }
     }
