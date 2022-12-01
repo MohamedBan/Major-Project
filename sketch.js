@@ -1,4 +1,31 @@
 // Project Title
+class character {
+  constructor(x, y, theImage) {
+    this.x = x;
+    this.y = y;
+    this.theImage = theImage;
+    this.dx = 5;
+    this.dy = 5;
+  }
+
+  update() {
+    
+
+    for (let i=bulletArray.length-1; i > 0; i--){
+      bulletArray[i].update();
+      bulletArray[i].display();
+      if (bulletArray[i].isOffScreen()){
+        bulletArray.splice(i, 1);
+      }
+    }
+
+    
+  }
+
+  display() {
+    image(this.theImage, this.x*cellWidth, this.y*cellHeight, cellWidth, cellHeight);
+  }
+}
 // Your Name
 // Date
 //
@@ -61,68 +88,6 @@ function draw() {
   
 }
 
-class character {
-  constructor(x, y, theImage) {
-    this.x = x;
-    this.y = y;
-    this.theImage = theImage;
-    this.dx = 5;
-    this.dy = 5;
-  }
-
-  update() {
-    if (keyIsDown(87)) {
-      if (grid[playerY-1][playerX] === 0) {
-        grid[playerY][playerX] = 0;
-        
-        
-        playerY--;
-        grid[playerY][playerX] = 9;
-      }
-    }
-    if (keyIsDown(83)) {
-      if (grid[playerY+1][playerX] === 0) {
-
-        grid[playerY][playerX] = 0;
-  
-        playerY++;
-        grid[playerY][playerX] = 9;
-      }
-    }
-    if (keyIsDown(68)) {
-      if (grid[playerY][playerX+1] === 0) {
-        grid[playerY][playerX] = 0;
-        
-        
-        playerX++;
-        grid[playerY][playerX] = 9;
-      }
-    }
-    if (keyIsDown(65)) {
-      if (grid[playerY][playerX-1] === 0) {
-        grid[playerY][playerX] = 0;
-        
-        
-        playerX--;
-        grid[playerY][playerX] = 9;
-      }
-    }
-
-    for (let i=bulletArray.length-1; i > 0; i--){
-      bulletArray[i].update();
-      bulletArray[i].display();
-      if (bulletArray[i].isOffScreen()){
-        bulletArray.splice(i, 1);
-      }
-    }
-
-    
-  }
-
-  display() {
-    image(this.theImage, this.x*cellWidth, this.y*cellHeight, cellWidth, cellHeight);
-  }
-}
 
 class Bullet {
   constructor(x, y, dx, dy, theImage) {
@@ -175,7 +140,7 @@ function keyPressed() {
       grid[playerY][playerX] = 0;
       
       
-      playerX++;
+      this.player1.this.playerX++;
       grid[playerY][playerX] = 9;
     }
 
@@ -187,7 +152,7 @@ function keyPressed() {
       grid[playerY][playerX] = 0;
       
       
-      playerX--;
+      player1.this.x--;
       grid[playerY][playerX] = 9;
     }
     

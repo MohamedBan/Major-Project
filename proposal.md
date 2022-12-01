@@ -3,16 +3,16 @@
 Put a description of what you're going to do here...
 
 ## Needs To Have List
-- 2 characters || one character and monsters
+- one character and monsters
 - charactesr able to attack
 - pick up ammo
+- sound
+- loading screen
 
 ## Nice To Have List
 
-- sound
 - multiplayer(express js, websockets)
 - loot chest
-- loading screen
 - health bar
 - death animation
 - dynamite
