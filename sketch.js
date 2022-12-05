@@ -18,6 +18,7 @@ class character {
         bulletArray.splice(i, 1);
       }
     }
+    
 
     
   }
@@ -82,6 +83,7 @@ function draw() {
   background(220);
   displayGrid(grid);
   
+  
  
 
 
@@ -136,24 +138,25 @@ function keyPressed() {
     knifeGif.play();
   }
   if (keyCode === RIGHT_ARROW) {
-    if (grid[playerY][playerX+1] === 0) {
-      grid[playerY][playerX] = 0;
+    if (grid[player1.y][player1.x+1] === 0) {
+      grid[player1.y][player1.X] = 0;
       
       
-      this.player1.this.playerX++;
-      grid[playerY][playerX] = 9;
+      player1.x++;
+      grid[player1.y][player1.x] = 9;
+      grid[player1.y][player1.x-1] = 0;
     }
 
   
   }
 
   if (keyCode === LEFT_ARROW) {
-    if (grid[playerY][playerX-1] === 0) {
-      grid[playerY][playerX] = 0;
+    if (grid[player1.y][player1.x-1] === 0) {
+      grid[player1.y][player1.x] = 0;
       
       
-      player1.this.x--;
-      grid[playerY][playerX] = 9;
+      player1.x--;
+      grid[player1.y][player1.x] = 9;
     }
     
   }
@@ -161,24 +164,25 @@ function keyPressed() {
 
 
   if (keyCode === UP_ARROW) {
-    if (grid[playerY-1][playerX] === 0) {
-      grid[playerY][playerX] = 0;
+    if (grid[player1.y-1][player1.x] === 0) {
+      grid[player1.y][player1.x] = 0;
       
       
-      playerY--;
-      grid[playerY][playerX] = 9;
+      player1.y--;
+      grid[player1.y][player1.x] = 9;
+      grid[player1.y+1][player1.x] = 0;
     }
 
     
   }
 
   if (keyCode === DOWN_ARROW) {
-    if (grid[playerY+1][playerX] === 0) {
+    if (grid[player1.y+1][player1.x] === 0) {
 
-      grid[playerY][playerX] = 0;
+      grid[player1.y][player1.x] = 0;
 
-      playerY++;
-      grid[playerY][playerX] = 9;
+      player1.y++;
+      grid[player1.y][player1.x] = 9;
     }
 
   
