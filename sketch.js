@@ -113,7 +113,7 @@ class Bullet {
 
   display() {
     // show the bullet
-    image(this.theImage, this.x, this. y);
+    image(this.theImage, this.x, this.y);
   }
 
   isOffScreen() {
@@ -129,7 +129,7 @@ class Bullet {
 
 function keyPressed() {
   if (key === " ") {
-    let someBullet = new Bullet(this.x + 38, this.y, 0, -5, bulletImg);
+    let someBullet = new Bullet(player1.x, player1.y, 0, -5, bulletImg);
     bulletArray.push(someBullet);
     
   }
