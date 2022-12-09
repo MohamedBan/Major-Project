@@ -60,10 +60,11 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   cellWidth = width/COLS;
   cellHeight = height/ROWS;
-  survivMap1 = create2dArray(COLS, ROWS);
+  grid = create2dArray(COLS, ROWS);
   //place player in grid
-  survivMap1[playerY][playerX] = 9;
+  grid[playerY][playerX] = 9;
   player1 = new character(playerY, playerX, survivorImg);
+  grid = survivMap1;
         
   
 
@@ -83,7 +84,7 @@ function preload(){
 
 function draw() {
   background(220);
-  displayGrid(survivMap1);
+  displayGrid(grid);
   
   
  
@@ -140,25 +141,25 @@ function keyPressed() {
     knifeGif.play();
   }
   if (keyIsDown(68)) {
-    if (survivMap1[player1.y][player1.x+1] === 0) {
-      survivMap1[player1.y][player1.X] = 0;
+    if (grid[player1.y][player1.x+1] === 0) {
+      grid[player1.y][player1.X] = 0;
       
       
       player1.x++;
-      survivMap1[player1.y][player1.x] = 9;
-      survivMap1[player1.y][player1.x-1] = 0;
+      grid[player1.y][player1.x] = 9;
+      grid[player1.y][player1.x-1] = 0;
     }
 
   
   }
 
   if (keyIsDown(65)) {
-    if (survivMap1[player1.y][player1.x-1] === 0) {
-      survivMap1[player1.y][player1.x] = 0;
+    if (grid[player1.y][player1.x-1] === 0) {
+      grid[player1.y][player1.x] = 0;
       
       
       player1.x--;
-      survivMap1[player1.y][player1.x] = 9;
+      grid[player1.y][player1.x] = 9;
     }
     
   }
@@ -166,25 +167,25 @@ function keyPressed() {
 
 
   if (keyIsDown(87)) {
-    if (survivMap1[player1.y-1][player1.x] === 0) {
-      survivMap1[player1.y][player1.x] = 0;
+    if (grid[player1.y-1][player1.x] === 0) {
+      grid[player1.y][player1.x] = 0;
       
       
       player1.y--;
-      survivMap1[player1.y][player1.x] = 9;
-      survivMap1[player1.y+1][player1.x] = 0;
+      grid[player1.y][player1.x] = 9;
+      grid[player1.y+1][player1.x] = 0;
     }
 
     
   }
 
   if (keyIsDown(83)) {
-    if (survivMap1[player1.y+1][player1.x] === 0) {
+    if (grid[player1.y+1][player1.x] === 0) {
 
-      survivMap1[player1.y][player1.x] = 0;
+      grid[player1.y][player1.x] = 0;
 
       player1.y++;
-      survivMap1[player1.y][player1.x] = 9;
+      grid[player1.y][player1.x] = 9;
     }
 
   
@@ -195,25 +196,25 @@ function mousePressed() {
   let xPos = Math.floor(mouseX/cellWidth);
   let yPos = Math.floor(mouseY/cellHeight);
 
-  if (survivMap1[yPos][xPos] === 0) {
-    survivMap1[yPos][xPos] = 1;
+  if (grid[yPos][xPos] === 0) {
+    grid[yPos][xPos] = 1;
   }
-  else if (survivMap1[yPos][xPos] === 1) {
-    survivMap1[yPos][xPos] = 0;
+  else if (grid[yPos][xPos] === 1) {
+    grid[yPos][xPos] = 0;
   }
 }
 
-function displayGrid(survivMap1) {
+function displayGrid(grid) {
   for (let y=0; y<ROWS; y++) {
     for (let x=0; x<COLS; x++) {
-      if (survivMap1[y][x] === 0) {
+      if (grid[y][x] === 0) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         
       }
-      else if (survivMap1[y][x] === 1) {
+      else if (grid[y][x] === 1) {
         image(stoneImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
-      else if (survivMap1[y][x] === 9) {
+      else if (grid[y][x] === 9) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         player1.display();
         player1.update();
@@ -236,18 +237,3 @@ function create2dArray(COLS, ROWS) {
   return emptyArray;
 }
 
-function createRandom2dArray(COLS, ROWS) {
-  let emptyArray = [];
-  for (let y=0; y<ROWS; y++) {
-    emptyArray.push([]);
-    for (let x=0; x<COLS; x++) {
-      if (random(100) < 50) {
-        emptyArray[y].push(0);
-      }
-      else {
-        emptyArray[y].push(1);
-      }
-    }
-  }
-  return emptyArray;
-}
