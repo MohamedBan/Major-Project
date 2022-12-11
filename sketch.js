@@ -63,15 +63,11 @@ function keyPressed() {
 }
 
 function mousePressed() {
-  let xPos = Math.floor(mouseX/cellWidth);
-  let yPos = Math.floor(mouseY/cellHeight);
-
-  if (grid[yPos][xPos] === 0) {
-    grid[yPos][xPos] = 1;
-  }
-  else if (grid[yPos][xPos] === 1) {
-    grid[yPos][xPos] = 0;
-  }
+  
+  let someBullet = new Bullet(player1.x, player1.y, 5, 0,player1, bulletImg);
+  player1.bulletArray.push(someBullet);
+    
+  
 }
 
 function displayGrid(grid) {
@@ -106,4 +102,5 @@ function create2dArray(COLS, ROWS) {
   }
   return emptyArray;
 }
+
 

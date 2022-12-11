@@ -14,7 +14,7 @@ class Bullet {
       // what does the bullet need to do during each frame? how do we know if it is off screen?
       this.x += this.dx;
       if (this.isOffScreen()){
-        this.fighter.bulletArray.splice(this.fighter.bulletArray.index(this), 1)
+        this.fighter.bulletArray.splice(this.fighter.bulletArray.indexOf(this), 1)
   
       }
       

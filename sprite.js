@@ -11,12 +11,10 @@ class Sprite {
     update() {
       
   
-      for (let i=this.bulletArray.length-1; i > 0; i--){
-        this.bulletArray[i].update();
-        this.bulletArray[i].display();
-        if (this.bulletArray[i].isOffScreen()){
-          this.bulletArray.splice(i, 1);
-        }
+      for (const bullet of this.bulletArray){
+        bullet.update();
+        bullet.display();
+        
         
       }
       this.inputHandler();
@@ -28,21 +26,21 @@ class Sprite {
     }
     inputHandler(){
       //d
-      if (keyIsDown(68)) {
-        this.x+=this.dy;
+      if (keyIsDown(68) && this.x < width- cellWidth && this.checkPosition(this.dx, 0)) {
+        this.x+=this.dx;
       
       
       }
       
         //a
-      if (keyIsDown(65)) {
+      if (keyIsDown(65) && this.x >= 0 && this.checkPosition(-this.dx, 0)) {
         this.x-=this.dx;
         
       }
       
       
       //w
-      if (keyIsDown(87)) {
+      if (keyIsDown(87) && this.y >= 0 && this.checkPosition(0, -this.dy)) {
         this.y-=this.dy;
       
         
@@ -50,21 +48,38 @@ class Sprite {
       
       
       //s
-      if (keyIsDown(83)) {
+      if (keyIsDown(83) && this.y < height-cellHeight && this.checkPosition(0, this.dy)) {
         this.y+=this.dy;
         
         
       }
       
-      if (keyIsDown(32)) {
-        let someBullet = new Bullet(this.x, this.y, 0, -5,this, bulletImg);
-        this.bulletArray.push(someBullet);
-        
-      }
+      
     }
     
     display() {
       image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    }
+
+    checkPosition(directionX, directionY){
+        let xPos;
+        let yPos;
+        if (directionX>0){
+            xPos = Math.floor((this.x+directionX+cellWidth)/cellWidth)
+            yPos = Math.floor((this.y+directionY)/cellHeight)
+        }
+        else if (directionY>0){
+            xPos = Math.floor((this.x+directionX)/cellWidth)
+            yPos = Math.floor((this.y-directionY+cellHeight)/cellHeight)
+        }
+        else{
+            xPos = Math.floor((this.x+directionX)/cellWidth)
+            yPos = Math.floor((this.y+directionY)/cellHeight)
+        }
+        console.log(`${yPos}, ${xPos}, ${grid[yPos][xPos] !== 1}`)
+        
+        return grid[yPos][xPos] !== 1
+        
     }
   }
   
