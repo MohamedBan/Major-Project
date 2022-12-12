@@ -21,6 +21,7 @@ function setup() {
   cellHeight = height/ROWS;
   grid = create2dArray(COLS, ROWS);
   //place player in grid
+  // eslint-disable-next-line no-undef
   player1 = new Sprite(0, 0, survivorImg);
   grid = survivMap1;
         
@@ -64,6 +65,7 @@ function keyPressed() {
 
 function mousePressed() {
   
+  // eslint-disable-next-line no-undef
   let someBullet = new Bullet(player1.x, player1.y, 5, 0,player1, bulletImg);
   player1.bulletArray.push(someBullet);
     
