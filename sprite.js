@@ -83,5 +83,9 @@ class Sprite {
     return grid[yPos][xPos] === 0 || grid[yPos][xPos] !== 1;
         
   }
+
+  hit(){
+    hit = collideRectRect(this.x , this.y, cellWidth, cellHeight, mouseX, mouseY, cheeseSize, cheeseSize);
+  }
 }
   

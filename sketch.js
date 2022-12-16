@@ -14,6 +14,7 @@ let bulletImg;
 let muzzle;
 let player1;
 let survivMap1;
+let hit;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -47,6 +48,7 @@ function draw() {
   
   player1.update();
   player1.display();
+  
  
 
 
