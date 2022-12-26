@@ -15,6 +15,7 @@ let muzzle;
 let player1;
 let survivMap1;
 let hit;
+let chestImg;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -39,6 +40,7 @@ function preload(){
   bulletImg = loadImage("bullet.png");
   muzzle = loadImage("muzzle.png");
   survivMap1 = loadJSON("survivMap.json");
+  chestImg = loadImage("chestb.png")
 
 }
 
@@ -83,6 +85,9 @@ function displayGrid(grid) {
       }
       else if (grid[y][x] === 1) {
         image(stoneImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if (grid[y][x] === 2) {
+        image(chestImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 9) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
