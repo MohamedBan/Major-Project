@@ -79,23 +79,25 @@ function mousePressed() {
 function displayGrid(grid) {
   for (let y=0; y<ROWS; y++) {
     for (let x=0; x<COLS; x++) {
-      if (grid[y][x] === 0) {
-        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      if close enough {
+        if (grid[y][x] === 0) {
+          image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+          
+        }
+        else if (grid[y][x] === 1) {
+          image(stoneImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        }
+        else if (grid[y][x] === 2) {
+          image(chestImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        }
+        else if (grid[y][x] === 9) {
+          image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+          player1.display();
+          player1.update();
+          
         
-      }
-      else if (grid[y][x] === 1) {
-        image(stoneImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      }
-      else if (grid[y][x] === 2) {
-        image(chestImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      }
-      else if (grid[y][x] === 9) {
-        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        player1.display();
-        player1.update();
-        
-      
-        
+          
+        }
       }
     }
   }
