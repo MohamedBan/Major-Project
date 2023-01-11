@@ -16,6 +16,7 @@ let player1;
 let survivMap1;
 let hit;
 let chestImg;
+let dragonGif;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -41,6 +42,7 @@ function preload(){
   muzzle = loadImage("muzzle.png");
   survivMap1 = loadJSON("survivMap.json");
   chestImg = loadImage("chestb.png")
+  //dragonGif = createImg("")
 
 }
 
@@ -79,7 +81,7 @@ function mousePressed() {
 function displayGrid(grid) {
   for (let y=0; y<ROWS; y++) {
     for (let x=0; x<COLS; x++) {
-      if close enough {
+      //if close enough {
         if (grid[y][x] === 0) {
           image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
           
@@ -97,7 +99,7 @@ function displayGrid(grid) {
           
         
           
-        }
+        
       }
     }
   }

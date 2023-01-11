@@ -14,8 +14,12 @@ class Bullet {
     // what does the bullet need to do during each frame? how do we know if it is off screen?
     this.x += this.dx;
     if (this.isOffScreen()){
-      this.fighter.bulletArray.splice(this.fighter.bulletArray.indexOf(this), 1);
-  
+      this.delete();
+    }
+
+    if (grid[Math.floor(this.y/cellHeight)][Math.floor(this.x/cellWidth)] === 1) {
+      grid[Math.floor(this.y/cellHeight)][Math.floor(this.x/cellWidth)] = 0;
+      this.delete();
     }
       
   }
@@ -25,9 +29,14 @@ class Bullet {
     image(this.theImage, this.x, this.y);
   }
   
+  delete() {
+    this.fighter.bulletArray.splice(this.fighter.bulletArray.indexOf(this), 1);
+
+  }
   isOffScreen() {
     // check if the bullet is still on the screen
-    return this.x >= windowWidth;
+
+    return this.x >= width || this. x < 0 || this.y >= height || this. y < 0;
   }
 }
   

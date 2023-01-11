@@ -37,7 +37,7 @@ class Monster {
 
   moveTowardsPlayer(playerX, playerY) {
     // use a pathfinding algorithm to calculate the shortest path to the player
-    // and update the monster's position accordingly
+    // and update the monster's position 
   }
 }
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 class Sprite {
   constructor(x, y, theImage) {
     this.x = x;
@@ -26,62 +25,54 @@ class Sprite {
       
   }
   inputHandler(){
+    let xPos = Math.floor((this.x)/cellWidth);
+    let yPos = Math.floor(this.y/cellHeight);
+
+
+
     //d
-    if (keyIsDown(68) && this.x < width- cellWidth && this.checkPosition(this.dx, 0)) {
-      this.x+=this.dx;
+    if (keyIsDown(68) && grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] !==1) {
+      this.x += this.dx;
       
       
     }
       
     //a
-    if (keyIsDown(65) && this.x >= 0 && this.checkPosition(-this.dx, 0)) {
-      this.x-=this.dx;
-        
+    if (keyIsDown(65) && grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] !== 1) {
+      this.x -= this.dx;
     }
       
       
     //w
-    if (keyIsDown(87) && this.y >= 0 && this.checkPosition(0, -this.dy)) {
-      this.y-=this.dy;
+    if (keyIsDown(87) && grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] !== 1) {
+      this.y -= this.dy;
       
         
     }
       
       
     //s
-    if (keyIsDown(83) && this.y < height-cellHeight && this.checkPosition(0, this.dy)) {
-      this.y+=this.dy;
-        
+    if (keyIsDown(83) && grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] !== 1) {
+      this.y += this.dy;
         
     }
+
+
       
       
   }
     
   display() {
+    
+    imageMode(CENTER);
     image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    imageMode(CORNER);
+
   }
 
-  checkPosition(directionX, directionY){
-    let xPos;
-    let yPos;
-    if (directionX>0){
-      xPos = Math.floor((this.x+directionX+cellWidth)/cellWidth);
-      yPos = Math.floor(this.y/cellHeight);
-    }
-    else if (directionY>0){
-      xPos = Math.floor(this.x/cellWidth);
-      yPos = Math.floor((this.y-directionY+cellHeight)/cellHeight);
-    }
-    else{
-      xPos = Math.floor((this.x+directionX)/cellWidth);
-      yPos = Math.floor((this.y+directionY)/cellHeight);
-    }
-    
-        
-    
-    return grid[yPos][xPos] === 0 || grid[yPos][xPos] !== 1;
-        
+  
+  calculatePos(value, cellsize) {
+    return Math.floor(value/cellsize);
   }
 
   hit(){
