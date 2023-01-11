@@ -17,6 +17,8 @@ let survivMap1;
 let hit;
 let chestImg;
 let dragonGif;
+let state = false;
+let interactE;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -27,6 +29,7 @@ function setup() {
   // eslint-disable-next-line no-undef
   player1 = new Sprite(0, 0, survivorImg);
   grid = survivMap1;
+ 
         
   
 
@@ -41,8 +44,10 @@ function preload(){
   bulletImg = loadImage("bullet.png");
   muzzle = loadImage("muzzle.png");
   survivMap1 = loadJSON("survivMap.json");
-  chestImg = loadImage("chestb.png")
-  //dragonGif = createImg("")
+  chestImg = loadImage("chestb.png");
+  dragonGif = loadImage("dragon.gif");
+  interactE = loadImage("pickkup.webp");
+  
 
 }
 
@@ -52,6 +57,7 @@ function draw() {
   
   player1.update();
   player1.display();
+  
   
  
 
@@ -82,21 +88,27 @@ function displayGrid(grid) {
   for (let y=0; y<ROWS; y++) {
     for (let x=0; x<COLS; x++) {
       //if close enough {
-        if (grid[y][x] === 0) {
-          image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      if (grid[y][x] === 0) {
+        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
           
-        }
-        else if (grid[y][x] === 1) {
-          image(stoneImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        }
-        else if (grid[y][x] === 2) {
-          image(chestImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        }
-        else if (grid[y][x] === 9) {
-          image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-          player1.display();
-          player1.update();
+      }
+      else if (grid[y][x] === 1) {
+        image(stoneImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if (grid[y][x] === 2) {
+        image(chestImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        
           
+      }
+      else if (grid[y][x] === 3) {
+        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        image(dragonGif, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if (grid[y][x] === 9) {
+        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        player1.display();
+        player1.update();
+        
         
           
         
@@ -115,5 +127,11 @@ function create2dArray(COLS, ROWS) {
   }
   return emptyArray;
 }
+
+
+    
+  
+
+
 
 

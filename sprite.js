@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 class Sprite {
   constructor(x, y, theImage) {
     this.x = x;
@@ -25,7 +26,7 @@ class Sprite {
       
   }
   inputHandler(){
-    let xPos = Math.floor((this.x)/cellWidth);
+    let xPos = Math.floor(this.x/cellWidth);
     let yPos = Math.floor(this.y/cellHeight);
 
 
@@ -33,6 +34,9 @@ class Sprite {
     //d
     if (keyIsDown(68) && grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] !==1) {
       this.x += this.dx;
+      if(grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] ===2){
+        image(interactE, this.x*cellWidth+10, this.y*cellHeight-20, cellWidth,cellHeight);
+      }
       
       
     }
@@ -40,20 +44,30 @@ class Sprite {
     //a
     if (keyIsDown(65) && grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] !== 1) {
       this.x -= this.dx;
+      if(grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] ===2){
+        image(interactE, this.x*cellWidth+10, this.y*cellHeight-20, cellWidth,cellHeight);
+        console.log("hooray");
+      }
     }
       
       
     //w
     if (keyIsDown(87) && grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] !== 1) {
       this.y -= this.dy;
+      if(grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] ===2){
+        image(interactE, this.x*cellWidth+10, this.y*cellHeight-20, cellWidth,cellHeight);
+      }
       
         
     }
       
       
     //s
-    if (keyIsDown(83) && grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] !== 1) {
+    if (keyIsDown(83) && grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] !== 1 ) {
       this.y += this.dy;
+      if(grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] ===2){
+        image(interactE, this.x*cellWidth+10, this.y*cellHeight-20, cellWidth,cellHeight);
+      }
         
     }
 

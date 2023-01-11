@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 class Bullet {
   constructor(x, y, dx, dy, fighter, theImage) {
     // define the variables needed for the bullet here
