@@ -19,6 +19,7 @@ class Sprite {
         
     }
     this.inputHandler();
+   
       
       
       
@@ -29,13 +30,11 @@ class Sprite {
     let xPos = Math.floor(this.x/cellWidth);
     let yPos = Math.floor(this.y/cellHeight);
 
-
-
     //d
     if (keyIsDown(68) && grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] !==1) {
       this.x += this.dx;
       if(grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] ===2){
-        image(interactE, this.x*cellWidth+10, this.y*cellHeight-20, cellWidth,cellHeight);
+        image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
       }
       
       
@@ -45,7 +44,7 @@ class Sprite {
     if (keyIsDown(65) && grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] !== 1) {
       this.x -= this.dx;
       if(grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] ===2){
-        image(interactE, this.x*cellWidth+10, this.y*cellHeight-20, cellWidth,cellHeight);
+        image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
         console.log("hooray");
       }
     }
@@ -55,7 +54,7 @@ class Sprite {
     if (keyIsDown(87) && grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] !== 1) {
       this.y -= this.dy;
       if(grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] ===2){
-        image(interactE, this.x*cellWidth+10, this.y*cellHeight-20, cellWidth,cellHeight);
+        image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
       }
       
         
@@ -66,7 +65,7 @@ class Sprite {
     if (keyIsDown(83) && grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] !== 1 ) {
       this.y += this.dy;
       if(grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] ===2){
-        image(interactE, this.x*cellWidth+10, this.y*cellHeight-20, cellWidth,cellHeight);
+        image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
       }
         
     }
