@@ -15,6 +15,7 @@ class Sprite {
     for (const bullet of this.bulletArray){
       bullet.update();
       bullet.display();
+      
         
         
     }
