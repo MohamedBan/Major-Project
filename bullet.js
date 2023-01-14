@@ -9,12 +9,22 @@ class Bullet {
     this.theImage = theImage;
     this.fighter = fighter;
     
+    
   }
   
   update() {
     // what does the bullet need to do during each frame? how do we know if it is off screen?
-    this.x += this.dx;
-    this.rotation();
+    
+    let angle = atan2(mouseY - this.y, mouseX - this.x);
+    
+    push();
+    translate(this.x, this.y);
+    rotate(angle);
+    this.x += this.dx * cos(radians(angle));
+    this.y += this.dy * sin(radians(angle));
+    
+    
+    
     if (this.isOffScreen()){
       this.delete();
     }
@@ -27,22 +37,20 @@ class Bullet {
   
   display() {
     // show the bullet
-    image(this.theImage, this.x, this.y);
-    this.rotation();
+    image(this.theImage, 0, 0);
+    pop();
+    
   }
   
   delete() {
     this.fighter.bulletArray.splice(this.fighter.bulletArray.indexOf(this), 1);
 
   }
-  rotation() {
-    let angle = atan2(mouseY - height / 2, mouseX - width / 2);
-    push();
-    translate(player1.x, player1.y);
-    rotate(angle);
-    image(this.theImage, this.x, this.y);
-    pop();
-  }
+
+  
+    
+  
+ 
 
   isOffScreen() {
     // check if the bullet is still on the screen

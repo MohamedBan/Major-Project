@@ -16,9 +16,10 @@ class Sprite {
       bullet.update();
       bullet.display();
       
-        
-        
+      
+      
     }
+    
     this.inputHandler();
    
       
@@ -91,6 +92,19 @@ class Sprite {
 
   hit(){
     hit = collideRectRect(this.x , this.y, cellWidth, cellHeight, mouseX, mouseY, cheeseSize, cheeseSize);
+  }
+  rotation(){
+    bullet.x = this.x
+    bullet.y = this.y
+      // Calculate the angle between the player and the mouse cursor
+    let angle = atan2(mouseY - this.y, mouseX - this.x);
+
+    // Rotate the bullet to the calculated angle
+    push();
+    translate(bullet.x, bullet.y);
+    rotate(angle);
+    image(bullet.theImage, 0, 0);
+    pop();
   }
 }
   
