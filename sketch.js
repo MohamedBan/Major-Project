@@ -19,6 +19,12 @@ let chestImg;
 let dragonGif;
 let state = false;
 let interactE;
+let PF = require('pathfinding');
+let pathfindingGrid = new PF.Grid(grid);
+let finder = new PF.BreadthFirstFinder();
+let path = finder.findPath(1, 2, player1.x, player1.y, grid[y][x]);
+monster.moveTo(path[0][0], path[0][1]);
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
