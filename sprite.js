@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-class Sprite {
+class Fighter {
   constructor(x, y, theImage) {
     this.x = x;
     this.y = y;

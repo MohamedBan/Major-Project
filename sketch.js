@@ -1,4 +1,4 @@
-//import { Grid, BreadthFirstFinder } from 'pathfinding';
+
 const ROWS = 30;
 const COLS = 30;
 let grid;
@@ -21,26 +21,11 @@ let monsterImg;
 let interactE;
 let health = 20;
 let maxHealth = 20;
+let monster2;
 
 
 
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  cellWidth = width/COLS;
-  cellHeight = height/ROWS;
-  grid = create2dArray(COLS, ROWS);
-  //place player in grid
-  // eslint-disable-next-line no-unde
-  player1 = new Sprite(0, 0, survivorImg);
-  monster1 = new Monster(0, 0, monsterImg)
-  grid = survivMap1;
-  //monster1.moveTowards(0.1,player1.x, player1.y, 0.001);
- 
-        
-  
-
-}
 
 function preload(){
   stoneImg = loadImage("rock.png");
@@ -54,7 +39,27 @@ function preload(){
   chestImg = loadImage("chestb.png");
   dragonGif = loadImage("dragon.gif");
   interactE = loadImage("pickkup.webp");
-  monsterImg = loadImage("zombieWalk.gif")
+  
+  monsterImg = loadAnimation("zombieWalk.gif");
+  
+
+}
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  cellWidth = width/COLS;
+  cellHeight = height/ROWS;
+  grid = create2dArray(COLS, ROWS);
+  //place player in grid
+  // eslint-disable-next-line no-unde
+  player1 = new Fighter(0, 0, survivorImg);
+  //monster1 = new Monster(0, 0, monsterImg)
+  monster2 = new Sprite(cellWidth, cellHeight,32, 32 );
+  monster2.addAni("walk", monsterImg);
+  
+  grid = survivMap1;
+  monster2.moveTowards(0.1,player1.x, player1.y, 0.001);
+ 
+        
   
 
 }
@@ -67,7 +72,7 @@ function draw() {
   player1.display();
   //updateHealth(player1.x, player1.y, health, maxHealth);
   
-  //monster1.moveTowards(player1.x, player1.y, 0.005);
+  monster2.moveTowards(player1.x, player1.y, 0.005);
   // for (let monster1 of monsters) {
   //   monster1.display();
   // }
@@ -143,33 +148,35 @@ function create2dArray(COLS, ROWS) {
 
     
   
-// let monsters = [];
-// let xPos = Math.floor(this.x/cellWidth);
-// let yPos = Math.floor(this.y/cellHeight);
-// setInterval(spawnMonster, 5000);
+let monsters = [];
 
-// function spawnMonster() {
-//   let a = random(xPos * cellWidth);
-//   let b = random(yPos * cellHeight);
-//   // Check if the position is not in an obstacle
-//   if (noObstacleAt(a, b)) {
-//     let newMonster = new Monster(a, b);
-//     monsters.push(newMonster);
-//   }
-// }
+setInterval(spawnMonster, 5000);
+
+function spawnMonster() {
+  let a;
+  let b;
+  // Check if the position is not in an obstacle
+  while (!noObstacleAt(a, b)) {
+    a = random(width);
+    b = random(height);
+    let newMonster = new Monster(a, b);
+    monsters.push(newMonster);
+  }
+
+  
+}
   
 
 
 
-// function noObstacleAt(a, b) {
+function noObstacleAt(a, b) {
   
-//   if (grid[Math.floor(this.y/cellHeight)][Math.floor(this.x/cellWidth)] === 1) {
-//   if (grid[y][x] === 1) {
-//     return false;
+  if (grid[Math.floor(b/cellHeight)][Math.floor(a/cellWidth)] !== 1) {
+    return true;
       
-//   }
-//   return true;
-// } 
+  }
+  return false;
+} 
 
 
 

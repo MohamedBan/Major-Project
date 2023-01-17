@@ -38,7 +38,7 @@ class Bullet {
   
   display() {
     // show the bullet
-     let vec = createVector(this.x, this.y);
+    let vec = createVector(this.x, this.y);
     this.dx = lerp(this.dx, vec.x, 0.1);
     this.dy = lerp(this.dy, vec.y, 0.1);
     image(this.theImage, this.dx, this.dy);
