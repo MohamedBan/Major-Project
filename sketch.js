@@ -1,4 +1,4 @@
-
+//import { Grid, BreadthFirstFinder } from 'pathfinding';
 const ROWS = 30;
 const COLS = 30;
 let grid;
@@ -17,13 +17,12 @@ let survivMap1;
 let hit;
 let chestImg;
 let dragonGif;
-let state = false;
+let monsterImg;
 let interactE;
-let PF = require('pathfinding');
-let pathfindingGrid = new PF.Grid(grid);
-let finder = new PF.BreadthFirstFinder();
-let path = finder.findPath(1, 2, player1.x, player1.y, grid[y][x]);
-monster.moveTo(path[0][0], path[0][1]);
+let health = 20;
+let maxHealth = 20;
+
+
 
 
 function setup() {
@@ -32,9 +31,11 @@ function setup() {
   cellHeight = height/ROWS;
   grid = create2dArray(COLS, ROWS);
   //place player in grid
-  // eslint-disable-next-line no-undef
+  // eslint-disable-next-line no-unde
   player1 = new Sprite(0, 0, survivorImg);
+  monster1 = new Monster(0, 0, monsterImg)
   grid = survivMap1;
+  //monster1.moveTowards(0.1,player1.x, player1.y, 0.001);
  
         
   
@@ -53,6 +54,7 @@ function preload(){
   chestImg = loadImage("chestb.png");
   dragonGif = loadImage("dragon.gif");
   interactE = loadImage("pickkup.webp");
+  monsterImg = loadImage("zombieWalk.gif")
   
 
 }
@@ -63,9 +65,12 @@ function draw() {
   
   player1.update();
   player1.display();
+  //updateHealth(player1.x, player1.y, health, maxHealth);
   
-  
- 
+  //monster1.moveTowards(player1.x, player1.y, 0.005);
+  // for (let monster1 of monsters) {
+  //   monster1.display();
+  // }
 
 
   
@@ -84,7 +89,8 @@ function keyPressed() {
 function mousePressed() {
   
   // eslint-disable-next-line no-undef
-  let someBullet = new Bullet(player1.x, player1.y, 5, 0,player1, bulletImg);
+  
+  let someBullet = new Bullet(player1.x, player1.y, 0, 5,player1, bulletImg);
   player1.bulletArray.push(someBullet);
     
   
@@ -137,7 +143,33 @@ function create2dArray(COLS, ROWS) {
 
     
   
+// let monsters = [];
+// let xPos = Math.floor(this.x/cellWidth);
+// let yPos = Math.floor(this.y/cellHeight);
+// setInterval(spawnMonster, 5000);
 
+// function spawnMonster() {
+//   let a = random(xPos * cellWidth);
+//   let b = random(yPos * cellHeight);
+//   // Check if the position is not in an obstacle
+//   if (noObstacleAt(a, b)) {
+//     let newMonster = new Monster(a, b);
+//     monsters.push(newMonster);
+//   }
+// }
+  
+
+
+
+// function noObstacleAt(a, b) {
+  
+//   if (grid[Math.floor(this.y/cellHeight)][Math.floor(this.x/cellWidth)] === 1) {
+//   if (grid[y][x] === 1) {
+//     return false;
+      
+//   }
+//   return true;
+// } 
 
 
 

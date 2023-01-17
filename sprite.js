@@ -19,6 +19,8 @@ class Sprite {
       
       
     }
+    this.updateHealth(this.x, this.y, health, maxHealth);
+
     
     this.inputHandler();
    
@@ -31,12 +33,13 @@ class Sprite {
   inputHandler(){
     let xPos = Math.floor(this.x/cellWidth);
     let yPos = Math.floor(this.y/cellHeight);
+    let state = false;
 
     //d
     if (keyIsDown(68) && grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] !==1) {
       this.x += this.dx;
       if(grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] ===2){
-        image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
+        state = true;
       }
       
       
@@ -46,8 +49,8 @@ class Sprite {
     if (keyIsDown(65) && grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] !== 1) {
       this.x -= this.dx;
       if(grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] ===2){
-        image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
-        console.log("hooray");
+        state = true;
+        
       }
     }
       
@@ -56,7 +59,7 @@ class Sprite {
     if (keyIsDown(87) && grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] !== 1) {
       this.y -= this.dy;
       if(grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] ===2){
-        image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
+        state = true;
       }
       
         
@@ -67,11 +70,14 @@ class Sprite {
     if (keyIsDown(83) && grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] !== 1 ) {
       this.y += this.dy;
       if(grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] ===2){
-        image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
+        state = true;
       }
         
     }
+    if (state === true){
+      image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
 
+    }
 
       
       
@@ -90,9 +96,17 @@ class Sprite {
     return Math.floor(value/cellsize);
   }
 
-  hit(){
-    hit = collideRectRect(this.x , this.y, cellWidth, cellHeight, mouseX, mouseY, cheeseSize, cheeseSize);
-  }
   
+  
+  updateHealth(x,y, health, maxHealth){
+  stroke(0);
+  strokeWeight(4);
+  noFill();
+  rect(x -10, y-15, 20, 1.5);
+  noStroke();
+  fill(255,0,0);
+  rect(x -10 ,y -15,map(health, 0, maxHealth, 0, 20), 1.5);
+  
+}
 }
   
