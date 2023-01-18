@@ -22,7 +22,7 @@ let interactE;
 let health = 20;
 let maxHealth = 20;
 let monster2;
-
+let angle = 0;
 
 
 
@@ -40,7 +40,7 @@ function preload(){
   dragonGif = loadImage("dragon.gif");
   interactE = loadImage("pickkup.webp");
   
-  monsterImg = loadAnimation("zombieWalk.gif");
+  monsterImg = loadImage("zombieWalk.gif");
   
 
 }
@@ -51,13 +51,15 @@ function setup() {
   grid = create2dArray(COLS, ROWS);
   //place player in grid
   // eslint-disable-next-line no-unde
+  
   player1 = new Fighter(0, 0, survivorImg);
+  
   //monster1 = new Monster(0, 0, monsterImg)
-  monster2 = new Sprite(cellWidth, cellHeight,32, 32 );
-  monster2.addAni("walk", monsterImg);
+  // monster2 = new Sprite(cellWidth, cellHeight,32, 32 );
+  // monster2.addAni("walk", monsterImg);
   
   grid = survivMap1;
-  monster2.moveTowards(0.1,player1.x, player1.y, 0.001);
+  //monster2.moveTowards(0.1,player1.x, player1.y, 0.001);
  
         
   
@@ -72,12 +74,18 @@ function draw() {
   player1.display();
   //updateHealth(player1.x, player1.y, health, maxHealth);
   
-  monster2.moveTowards(player1.x, player1.y, 0.005);
+  // monster2.moveTowards(player1.x, player1.y, 0.005);
   // for (let monster1 of monsters) {
   //   monster1.display();
   // }
-
-
+  // if (player1.state === true){
+  //   push();
+  //   translate(player1.x, player1.y);
+  //   rotate(player1.angle);
+    
+  //   pop();
+    
+  // }
   
 }
 
@@ -148,35 +156,35 @@ function create2dArray(COLS, ROWS) {
 
     
   
-let monsters = [];
+// let monsters = [];
 
-setInterval(spawnMonster, 5000);
+// setInterval(spawnMonster, 5000);
 
-function spawnMonster() {
-  let a;
-  let b;
-  // Check if the position is not in an obstacle
-  while (!noObstacleAt(a, b)) {
-    a = random(width);
-    b = random(height);
-    let newMonster = new Monster(a, b);
-    monsters.push(newMonster);
-  }
+// function spawnMonster() {
+//   let a;
+//   let b;
+//   // Check if the position is not in an obstacle
+//   while (!noObstacleAt(a, b)) {
+//     a = random(width);
+//     b = random(height);
+//     let newMonster = new Monster(a, b);
+//     monsters.push(newMonster);
+//   }
 
   
-}
+// }
   
 
 
 
-function noObstacleAt(a, b) {
+// function noObstacleAt(a, b) {
   
-  if (grid[Math.floor(b/cellHeight)][Math.floor(a/cellWidth)] !== 1) {
-    return true;
+//   if (grid[Math.floor(b/cellHeight)][Math.floor(a/cellWidth)] !== 1) {
+//     return true;
       
-  }
-  return false;
-} 
+//   }
+//   return false;
+// } 
 
 
 
