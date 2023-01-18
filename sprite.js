@@ -7,6 +7,8 @@ class Fighter {
     this.dx = 5;
     this.dy = 5;
     this.bulletArray = [];
+    this.angle = 0;
+    this.state = "right"
   }
     
   update() {
@@ -38,6 +40,9 @@ class Fighter {
 
     //d
     if (keyIsDown(68) && grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] !==1) {
+      //this.angle += (0 * Math.PI) / 180;
+      this.state = "right"
+      
       this.x += this.dx;
       if(grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] ===2){
         state = 1;
@@ -48,6 +53,11 @@ class Fighter {
       
     //a
     if (keyIsDown(65) && grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] !== 1) {
+      this.state = "left"
+      //this.angle += (180 * Math.PI) / 180;
+      
+    
+      
       this.x -= this.dx;
       if(grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] ===2){
         state = 1;
@@ -58,6 +68,11 @@ class Fighter {
       
     //w
     if (keyIsDown(87) && grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] !== 1) {
+      this.state = "up"
+      //this.angle += (270 * Math.PI) / 180;
+      
+    
+      
       this.y -= this.dy;
       if(grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] ===2){
         state = 1;
@@ -69,6 +84,11 @@ class Fighter {
       
     //s
     if (keyIsDown(83) && grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] !== 1 ) {
+      this.state = "down"
+      //this.angle += (90 * Math.PI) / 180;
+      
+    
+      
       this.y += this.dy;
       if(grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] ===2){
         state = 1;
@@ -89,6 +109,42 @@ class Fighter {
     imageMode(CENTER);
     image(this.theImage, this.x, this.y, cellWidth, cellHeight);
     imageMode(CORNER);
+    // if (this.state === "right"){
+    //   push()
+    //   translate(this.x, this.y)
+    //   imageMode(CENTER);
+    //   image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    //   imageMode(CORNER);
+    //   rotate(0)
+    //   pop()
+    // }
+    // if (this.state === "left"){
+    //   push()
+    //   translate(this.x, this.y)
+    //   imageMode(CENTER);
+    //   image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    //   imageMode(CORNER);
+    //   rotate(180)
+    //   pop()
+    // }
+    // if (this.state === "up "){
+    //   push()
+    //   translate(this.x, this.y)
+    //   imageMode(CENTER);
+    //   image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    //   imageMode(CORNER);
+    //   rotate(270)
+    //   pop()
+    // }
+    // if (this.state === "down"){
+    //   push()
+    //   translate(this.x, this.y)
+    //   imageMode(CENTER);
+    //   image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    //   imageMode(CORNER);
+    //   rotate(90)
+    //   pop()
+    // }
 
   }
 
@@ -117,10 +173,14 @@ rotate(){
   //d
   if (keyIsDown(68) && grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] !==1) {
     push();
-    angle += (0 * Math.PI) / 180;
+    this.angle += (0 * Math.PI) / 180;
     translate(width / 2, height / 2);
-    rotate(angle);
+    rotate(this.angle);
+    imageMode(CENTER);
     image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    imageMode(CORNER);
+    
+    
     pop();
     
     
@@ -129,10 +189,13 @@ rotate(){
   //a
   if (keyIsDown(65) && grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] !== 1) {
     push();
-    angle += (180 * Math.PI) / 180;
+    this.angle += (180 * Math.PI) / 180;
     translate(width / 2, height / 2);
-    rotate(angle);
+    rotate(this.angle);
+    imageMode(CENTER);
     image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    imageMode(CORNER);
+    
     pop();
   }
     
@@ -140,10 +203,12 @@ rotate(){
   //w
   if (keyIsDown(87) && grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] !== 1) {
     push();
-    angle += (270 * Math.PI) / 180;
+    this.angle += (270 * Math.PI) / 180;
     translate(width / 2, height / 2);
-    rotate(angle);
+    rotate(this.angle);
+    imageMode(CENTER);
     image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    imageMode(CORNER);
     pop();
     
       
@@ -153,10 +218,12 @@ rotate(){
   //s
   if (keyIsDown(83) && grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] !== 1 ) {
     push();
-    angle += (90 * Math.PI) / 180;
+    this.angle += (90 * Math.PI) / 180;
     translate(width / 2, height / 2);
-    rotate(angle);
+    rotate(this.angle);
+    imageMode(CENTER);
     image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    imageMode(CORNER);
     pop();
       
   }
