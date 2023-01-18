@@ -156,35 +156,35 @@ function create2dArray(COLS, ROWS) {
 
     
   
-// let monsters = [];
+let monsters = [];
 
-// setInterval(spawnMonster, 5000);
+setInterval(spawnMonster, 5000);
 
-// function spawnMonster() {
-//   let a;
-//   let b;
-//   // Check if the position is not in an obstacle
-//   while (!noObstacleAt(a, b)) {
-//     a = random(width);
-//     b = random(height);
-//     let newMonster = new Monster(a, b);
-//     monsters.push(newMonster);
-//   }
+function spawnMonster() {
+  let a;
+  let b;
+  // Check if the position is not in an obstacle
+  while (!noObstacleAt(a, b)) {
+    a = random(width);
+    b = random(height);
+    let newMonster = new Monster(a, b);
+    monsters.push(newMonster);
+  }
 
   
-// }
+}
   
 
 
 
-// function noObstacleAt(a, b) {
+function noObstacleAt(a, b) {
   
-//   if (grid[Math.floor(b/cellHeight)][Math.floor(a/cellWidth)] !== 1) {
-//     return true;
+  if (grid[Math.floor(b/cellHeight)][Math.floor(a/cellWidth)] !== 1) {
+    return true;
       
-//   }
-//   return false;
-// } 
+  }
+  return false;
+} 
 
 
 
