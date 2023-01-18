@@ -27,7 +27,7 @@ class Fighter {
     this.inputHandler();
    
       
-    this.rotate();
+    //this.rotate();
       
       
       
@@ -106,45 +106,45 @@ class Fighter {
     
   display() {
     
-    imageMode(CENTER);
-    image(this.theImage, this.x, this.y, cellWidth, cellHeight);
-    imageMode(CORNER);
-    // if (this.state === "right"){
-    //   push()
-    //   translate(this.x, this.y)
-    //   imageMode(CENTER);
-    //   image(this.theImage, this.x, this.y, cellWidth, cellHeight);
-    //   imageMode(CORNER);
-    //   rotate(0)
-    //   pop()
-    // }
-    // if (this.state === "left"){
-    //   push()
-    //   translate(this.x, this.y)
-    //   imageMode(CENTER);
-    //   image(this.theImage, this.x, this.y, cellWidth, cellHeight);
-    //   imageMode(CORNER);
-    //   rotate(180)
-    //   pop()
-    // }
-    // if (this.state === "up "){
-    //   push()
-    //   translate(this.x, this.y)
-    //   imageMode(CENTER);
-    //   image(this.theImage, this.x, this.y, cellWidth, cellHeight);
-    //   imageMode(CORNER);
-    //   rotate(270)
-    //   pop()
-    // }
-    // if (this.state === "down"){
-    //   push()
-    //   translate(this.x, this.y)
-    //   imageMode(CENTER);
-    //   image(this.theImage, this.x, this.y, cellWidth, cellHeight);
-    //   imageMode(CORNER);
-    //   rotate(90)
-    //   pop()
-    // }
+    // imageMode(CENTER);
+    // image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+    // imageMode(CORNER);
+    if (this.state === "right"){
+      push();
+      translate(this.x, this.y);
+      rotate(0 * Math.PI / 180);
+      imageMode(CENTER);
+      image(this.theImage, 0, 0, cellWidth, cellHeight);
+      imageMode(CORNER);
+      pop();
+    }
+    if (this.state === "left"){
+      push();
+      translate(this.x, this.y);
+      rotate(180* Math.PI / 180);
+      imageMode(CENTER);
+      image(this.theImage, 0, 0, cellWidth, cellHeight);
+      imageMode(CORNER);
+      pop();
+    }
+    if (this.state === "up "){
+      push();
+      translate(this.x, this.y);
+      rotate(270* Math.PI / 180);
+      imageMode(CENTER);
+      image(this.theImage, 0, 0, cellWidth, cellHeight);
+      imageMode(CORNER);
+      pop();
+    }
+    if (this.state === "down"){
+      push();
+      translate(this.x, this.y);
+      rotate(90* Math.PI / 180);
+      imageMode(CENTER);
+      image(this.theImage, 0, 0, cellWidth, cellHeight);
+      imageMode(CORNER);
+      pop();
+    }
 
   }
 
@@ -174,10 +174,10 @@ class Fighter {
     if (keyIsDown(68) && grid[yPos][this.calculatePos(this.x+this.dx, cellWidth)] !==1) {
       push();
       this.angle += 0 * Math.PI / 180;
-      translate(width / 2, height / 2);
+      translate(this.x, this.y);
       rotate(this.angle);
       imageMode(CENTER);
-      image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+      image(this.theImage, 0, 0, cellWidth, cellHeight);
       imageMode(CORNER);
     
     
@@ -190,10 +190,10 @@ class Fighter {
     if (keyIsDown(65) && grid[yPos][this.calculatePos(this.x-this.dx, cellWidth)] !== 1) {
       push();
       this.angle += 180 * Math.PI / 180;
-      translate(width / 2, height / 2);
+      translate(this.x, this.y);
       rotate(this.angle);
       imageMode(CENTER);
-      image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+      image(this.theImage, 0, 0, cellWidth, cellHeight);
       imageMode(CORNER);
     
       pop();
@@ -204,10 +204,10 @@ class Fighter {
     if (keyIsDown(87) && grid[this.calculatePos(this.y-this.dy, cellHeight)][xPos] !== 1) {
       push();
       this.angle += 270 * Math.PI / 180;
-      translate(width / 2, height / 2);
+      translate(this.x, this.y);
       rotate(this.angle);
       imageMode(CENTER);
-      image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+      image(this.theImage, 0, 0, cellWidth, cellHeight);
       imageMode(CORNER);
       pop();
     
@@ -219,10 +219,10 @@ class Fighter {
     if (keyIsDown(83) && grid[this.calculatePos(this.y+this.dy, cellHeight)][xPos] !== 1 ) {
       push();
       this.angle += 90 * Math.PI / 180;
-      translate(width / 2, height / 2);
+      translate(this.x, this.y);
       rotate(this.angle);
       imageMode(CENTER);
-      image(this.theImage, this.x, this.y, cellWidth, cellHeight);
+      image(this.theImage, 0, 0, cellWidth, cellHeight);
       imageMode(CORNER);
       pop();
       

@@ -163,12 +163,14 @@ setInterval(spawnMonster, 5000);
 function spawnMonster() {
   let a;
   let b;
+  a = random(width);
+  b = random(height);
   // Check if the position is not in an obstacle
   while (!noObstacleAt(a, b)) {
+    let newMonster = new Monster(a, b, monsterImg);
+    monsters.push(newMonster);
     a = random(width);
     b = random(height);
-    let newMonster = new Monster(a, b);
-    monsters.push(newMonster);
   }
 
   
