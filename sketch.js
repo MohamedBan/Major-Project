@@ -1,4 +1,5 @@
 
+
 const ROWS = 30;
 const COLS = 30;
 let grid;
@@ -75,9 +76,9 @@ function draw() {
   //updateHealth(player1.x, player1.y, health, maxHealth);
   
   // monster2.moveTowards(player1.x, player1.y, 0.005);
-  // for (let monster1 of monsters) {
-  //   monster1.display();
-  // }
+  for (let monster1 of monsters) {
+    monster1.display();
+  }
   // if (player1.state === true){
   //   push();
   //   translate(player1.x, player1.y);
@@ -103,7 +104,7 @@ function mousePressed() {
   
   // eslint-disable-next-line no-undef
   
-  let someBullet = new Bullet(player1.x, player1.y, 0, 5,player1, bulletImg);
+  let someBullet = new Bullet(player1.x, player1.y, this.dx, this.dy,player1, bulletImg);
   player1.bulletArray.push(someBullet);
     
   
@@ -158,7 +159,7 @@ function create2dArray(COLS, ROWS) {
   
 let monsters = [];
 
-setInterval(spawnMonster, 5000);
+setInterval(spawnMonster, 1000);
 
 function spawnMonster() {
   let a;
@@ -166,7 +167,7 @@ function spawnMonster() {
   a = random(width);
   b = random(height);
   // Check if the position is not in an obstacle
-  while (!noObstacleAt(a, b)) {
+  while (noObstacleAt(a, b)) {
     let newMonster = new Monster(a, b, monsterImg);
     monsters.push(newMonster);
     a = random(width);

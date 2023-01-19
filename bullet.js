@@ -4,8 +4,8 @@ class Bullet {
     // define the variables needed for the bullet here
     this.x = x;
     this.y = y;
-    this.dx = dx;
-    this.dy = dy;
+    this.dx = 5;
+    this.dy = 5;
     this.theImage = theImage;
     this.fighter = fighter;
     
@@ -15,10 +15,18 @@ class Bullet {
   update() {
     // what does the bullet need to do during each frame? how do we know if it is off screen?
     
-    let angle = atan2(mouseY - this.y, mouseX - this.x);
-    let distance = dist(player1.x, player1.y, mouseX, mouseY);
-    this.x = cos(angle) * distance;
-    this.y = sin(angle) * distance;
+    if(player1.state === "up"){
+      this.y -= this.dy;
+    }
+    if(player1.state === "right"){
+      this.x += this.dx;
+    }
+    if(player1.state === "down"){
+      this.y += this.dy;
+    }
+    if(player1.state === "left"){
+      this.x -= this.dx;
+    }
    
     
     
@@ -38,9 +46,7 @@ class Bullet {
   
   display() {
     // show the bullet
-    let vec = createVector(this.x, this.y);
-    this.dx = lerp(this.dx, vec.x, 0.1);
-    this.dy = lerp(this.dy, vec.y, 0.1);
+    
     image(this.theImage, this.dx, this.dy);
     
 

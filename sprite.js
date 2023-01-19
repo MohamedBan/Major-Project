@@ -15,8 +15,8 @@ class Fighter {
       
   
     for (const bullet of this.bulletArray){
-      bullet.update();
       bullet.display();
+      bullet.update();
       
       
       
@@ -127,7 +127,7 @@ class Fighter {
       imageMode(CORNER);
       pop();
     }
-    if (this.state === "up "){
+    if (this.state === "up"){
       push();
       translate(this.x, this.y);
       rotate(270* Math.PI / 180);
