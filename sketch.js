@@ -24,6 +24,10 @@ let health = 20;
 let maxHealth = 20;
 let monster2;
 let angle = 0;
+let popX;
+let popY;
+let bulletDx = 1;
+let bulletDy = 1;
 
 
 
@@ -87,14 +91,39 @@ function draw() {
   //   pop();
     
   // }
-  
+  if (popX && popY){
+    image(interactE, popX, popY, cellWidth,cellHeight);
+  }
 }
 
 
 function keyPressed() {
-
-  if (keyCode === "g"){
+  let a = random(100);
+  if (key === "g"){
     knifeGif.play();
+  }
+  if(popX && popY && key === "e"){
+    if(a<= 25){
+      player1.dx += 1;
+    }
+    else if(a<= 50){
+      player1.dy += 1;
+    }
+    else if(a<= 75){
+      bulletDx += 1;
+    }
+    else {
+      bulletDy += 1;
+    }
+    
+
+
+    let xPos = (popX -10)/ cellWidth;
+    let yPos = (popY +20)/ cellHeight;
+    grid[yPos][xPos] = 0;
+    popX = undefined;
+    popY = undefined;
+    
   }
 
 
@@ -104,7 +133,7 @@ function mousePressed() {
   
   // eslint-disable-next-line no-undef
   
-  let someBullet = new Bullet(player1.x, player1.y, this.dx, this.dy,player1, bulletImg);
+  let someBullet = new Bullet(player1.x, player1.y, player1, bulletImg, player1.state);
   player1.bulletArray.push(someBullet);
     
   

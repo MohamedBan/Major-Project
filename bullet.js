@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 class Bullet {
-  constructor(x, y, dx, dy, fighter, theImage) {
+  constructor(x, y, fighter, theImage, state) {
     // define the variables needed for the bullet here
     this.x = x;
     this.y = y;
@@ -8,6 +8,7 @@ class Bullet {
     this.dy = 5;
     this.theImage = theImage;
     this.fighter = fighter;
+    this.state = state;
     
     
   }
@@ -15,17 +16,17 @@ class Bullet {
   update() {
     // what does the bullet need to do during each frame? how do we know if it is off screen?
     
-    if(player1.state === "up"){
-      this.y -= this.dy;
+    if(this.state === "up"){
+      this.y -= bulletDy;
     }
-    if(player1.state === "right"){
-      this.x += this.dx;
+    if(this.state === "right"){
+      this.x += bulletDx;
     }
-    if(player1.state === "down"){
-      this.y += this.dy;
+    if(this.state === "down"){
+      this.y += bulletDy;
     }
-    if(player1.state === "left"){
-      this.x -= this.dx;
+    if(this.state === "left"){
+      this.x -= bulletDx;
     }
    
     
@@ -47,7 +48,7 @@ class Bullet {
   display() {
     // show the bullet
     
-    image(this.theImage, this.dx, this.dy);
+    image(this.theImage, this.x, this.y);
     
 
     

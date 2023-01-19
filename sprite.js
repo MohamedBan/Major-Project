@@ -4,11 +4,14 @@ class Fighter {
     this.x = x;
     this.y = y;
     this.theImage = theImage;
-    this.dx = 5;
-    this.dy = 5;
+    this.dx = 1;
+    this.dy = 1;
     this.bulletArray = [];
     this.angle = 0;
     this.state = "right";
+    this.state1 = 0;
+    this.xPos;
+    this.yPos;
   }
     
   update() {
@@ -96,10 +99,11 @@ class Fighter {
         
     }
     if (state === 1){
-      image(interactE, xPos*cellWidth+10, yPos*cellHeight-20, cellWidth,cellHeight);
-
+      popX = xPos*cellWidth+10,
+      popY = yPos*cellHeight-20;
     }
-
+    
+    
       
       
   }
