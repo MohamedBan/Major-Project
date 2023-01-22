@@ -4,8 +4,8 @@ class Fighter {
     this.x = x;
     this.y = y;
     this.theImage = theImage;
-    this.dx = 1;
-    this.dy = 1;
+    this.dx = 3;
+    this.dy = 3;
     this.bulletArray = [];
     this.angle = 0;
     this.state = "right";

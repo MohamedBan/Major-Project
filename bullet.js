@@ -39,7 +39,7 @@ class Bullet {
       this.delete();
     }
 
-    if (grid[Math.floor(this.y/cellHeight)][Math.floor(this.x/cellWidth)] === 1) {
+    else if (grid[Math.floor(this.y/cellHeight)][Math.floor(this.x/cellWidth)] === 1) {
       grid[Math.floor(this.y/cellHeight)][Math.floor(this.x/cellWidth)] = 0;
       this.delete();
     }
