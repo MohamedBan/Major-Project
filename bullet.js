@@ -28,6 +28,14 @@ class Bullet {
     if(this.state === "left"){
       this.x -= bulletDx;
     }
+    for (let i = 0; i < monsters.length; i++) {
+      if (collideRectRect(this.x, this.y, cellWidth, cellHeight, monsters[i].x, monsters[i].y, monsters[i].width, monsters[i].height)) {
+          // delete the monster when a collision is detected
+          monsters.splice(i, 1);
+          this.delete();
+          break;
+      }
+    }
    
     
     

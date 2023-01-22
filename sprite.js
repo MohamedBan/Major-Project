@@ -12,6 +12,8 @@ class Fighter {
     this.state1 = 0;
     this.xPos;
     this.yPos;
+    this.width = cellWidth;
+    this.height = cellHeight;
   }
     
   update() {

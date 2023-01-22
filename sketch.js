@@ -30,6 +30,7 @@ let bulletDx = 1;
 let bulletDy = 1;
 let monster;
 let monsters = [];
+let state = false;
 
 
 
@@ -87,7 +88,21 @@ function draw() {
   for (let i = 0; i < monsters.length; i++) {
     moveTowardsPlayer(monsters[i], player1);
     monsters[i].display();
-  }
+    
+    if (collideRectRect(player1.x, player1.y, cellWidth*0.5, cellHeight*0.5, monsters[i].x, monsters[i].y, cellWidth*0.5, cellHeight*0.5)) {
+      health-= 0.1;
+    }
+    if (monsters[i]>= 5){
+      state = true;
+    }
+
+
+    }
+
+    // if (health <= 0){
+    //   alert("game over")
+    // }
+  
   // if (player1.state === true){
   //   push();
   //   translate(player1.x, player1.y);
@@ -193,8 +208,11 @@ function create2dArray(COLS, ROWS) {
   
 
 
-setInterval(spawnMonster, 1000);
+if (state === false){
+  setInterval(spawnMonster, 1000);
 
+
+}
 
 function spawnMonster() {
   let a;
