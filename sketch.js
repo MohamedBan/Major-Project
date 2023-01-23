@@ -92,16 +92,16 @@ function draw() {
     if (collideRectRect(player1.x, player1.y, cellWidth*0.5, cellHeight*0.5, monsters[i].x, monsters[i].y, cellWidth*0.5, cellHeight*0.5)) {
       health-= 0.1;
     }
-    if (monsters[i]>= 5){
+    if (!monsters[i]>= 5){
       state = true;
     }
 
 
-    }
+  }
 
-    // if (health <= 0){
-    //   alert("game over")
-    // }
+  // if (health <= 0){
+  //   alert("game over")
+  // }
   
   // if (player1.state === true){
   //   push();
@@ -296,7 +296,7 @@ function moveTowardsPlayer(monster, player) {
     
     if(currentNode.x < 0 || currentNode.x > grid[0].length - 1 || currentNode.y < 0 || currentNode.y > grid.length - 1){
       return;
-  }
+    }
     // If the current node is the player's position, we've found a path
     if (currentNode.x === player.x && currentNode.y === player.y) {
       let path = reconstructPath(currentNode);
@@ -312,7 +312,7 @@ function moveTowardsPlayer(monster, player) {
     for (let i = -1; i <= 1; i++) {
       for (let j = -1; j <= 1; j++) {
         // Skip nodes that are out of bounds or are the current node
-        if (currentNode.x + i < 0 || currentNode.x + i >= COLS || currentNode.y + j < 0 || currentNode.y + j >= ROWS || (i === 0 && j === 0)) {
+        if (currentNode.x + i < 0 || currentNode.x + i >= COLS || currentNode.y + j < 0 || currentNode.y + j >= ROWS || i === 0 && j === 0) {
           continue;
         }
         if (currentNode.x + i < 0 || currentNode.x + i >= grid[0].length || currentNode.y + j < 0 || currentNode.y + j >= grid.length) {
@@ -340,31 +340,32 @@ function moveTowardsPlayer(monster, player) {
           continue;
         }
 
-                // check if the new node is already in the open list
-                let inOpenList = false;
-                let indexInOpenList = -1;
-                for (let k = 0; k < openList.length; k++) {
-                  if (newNode.x === openList[k].x && newNode.y === openList[k].y) {
-                    inOpenList = true;
-                    indexInOpenList = k;
-                    break;
-                  }
-                }
-        
-                if(inOpenList){
-                  if(newNode.g < openList[indexInOpenList].g){
-                    openList[indexInOpenList].g = newNode.g;
-                    openList[indexInOpenList].f = openList[indexInOpenList].g + openList[indexInOpenList].h;
-                    openList[indexInOpenList].parent = currentNode;
-                  }
-                }else{
-                  // add the new node to the open list
-                  openList.push(newNode);
-                }
-              }
-            }
+        // check if the new node is already in the open list
+        let inOpenList = false;
+        let indexInOpenList = -1;
+        for (let k = 0; k < openList.length; k++) {
+          if (newNode.x === openList[k].x && newNode.y === openList[k].y) {
+            inOpenList = true;
+            indexInOpenList = k;
+            break;
           }
         }
+        
+        if(inOpenList){
+          if(newNode.g < openList[indexInOpenList].g){
+            openList[indexInOpenList].g = newNode.g;
+            openList[indexInOpenList].f = openList[indexInOpenList].g + openList[indexInOpenList].h;
+            openList[indexInOpenList].parent = currentNode;
+          }
+        }
+        else{
+          // add the new node to the open list
+          openList.push(newNode);
+        }
+      }
+    }
+  }
+}
         
 function reconstructPath(node) {
   let path = [];
@@ -372,11 +373,11 @@ function reconstructPath(node) {
   while (node.parent) {
     node = node.parent;
     path.unshift({x: node.x, y: node.y});
-    }
- return path;
+  }
+  return path;
 }
         
-        // function to move along the path
+// function to move along the path
 function moveAlongPath(path) {
   if (path.length > 0) {
     monster.moveTo(path[0].x * cellWidth + cellWidth / 2, path[0].y * cellHeight + cellHeight / 2);
