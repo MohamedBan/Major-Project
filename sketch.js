@@ -37,7 +37,7 @@ let startSound;
 let idleSound;
 let endSound;
 let mute;
-let state1 = "yes"
+let state1 = "yes";
 let volume;
 
 
@@ -53,14 +53,14 @@ function preload(){
   chestImg = loadImage("chestb.png");
   dragonGif = loadImage("dragon.gif");
   interactE = loadImage("pickkup.webp");
-  startScreen = loadImage("startscreen.jpg")
+  startScreen = loadImage("startscreen.jpg");
   monsterImg = loadImage("zombieWalk.gif");
   gameOver = loadImage("game-over.jpg");
   startSound = loadSound("Startsound.mp3");
   idleSound = loadSound("idleSound.mp3");
   endSound = loadSound("end.mp3");
   mute = loadImage("button.png");
-  volume = loadImage("volume.png")
+  volume = loadImage("volume.png");
   
   
 
@@ -100,7 +100,7 @@ function draw() {
   
   else if (screen === "idle"){
     displayGrid(grid);
-    startSound.stop()
+    startSound.stop();
     idleSound.playMode("UntilDone");
     idleSound.play();
     player1.update();
@@ -122,14 +122,14 @@ function draw() {
       }
     }
     if (health <= 0){
-      screen = "end"
+      screen = "end";
     }
   }
   else{
-    idleSound.stop()
+    idleSound.stop();
     endSound.playMode("UntilDone");
     endSound.play();
-    end()
+    end();
 
   }
   
@@ -184,13 +184,13 @@ function mousePressed() {
   
   if (state1 === "yes" && mouseInsideRect(1275, 1350, 700, 770)){
       
-      state1 = "no"
+    state1 = "no";
   }
   else if (state1 === "no" && mouseInsideRect(1275, 1350, 700, 770)){
-      state1 = "yes"
+    state1 = "yes";
   }
   else if(!mouseInsideRect(1275, 1350, 700, 770)){
-    screen = "idle"
+    screen = "idle";
   }
   
   
@@ -273,32 +273,32 @@ function spawnMonster() {
 }
 
 function start(){
-  startSound.stop()
-  image(startScreen, 0, 0, windowWidth, windowHeight)
-  textSize(32)
-  textFont("georgia")
-  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20)
-  fill("yellow")
-  image(mute, 1275, 700, 70, 70)
+  startSound.stop();
+  image(startScreen, 0, 0, windowWidth, windowHeight);
+  textSize(32);
+  textFont("georgia");
+  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20);
+  fill("yellow");
+  image(mute, 1275, 700, 70, 70);
   
   
 }
 function start1(){
   startSound.playMode("UntilDone");
   startSound.play();
-  image(startScreen, 0, 0, windowWidth, windowHeight)
-  textSize(32)
-  textFont("georgia")
-  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20)
-  fill("yellow")
-  image(volume, 1275, 700, 70, 70)
+  image(startScreen, 0, 0, windowWidth, windowHeight);
+  textSize(32);
+  textFont("georgia");
+  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20);
+  fill("yellow");
+  image(volume, 1275, 700, 70, 70);
   
 }
 
 
   
 function end(){
-  image(gameOver, 0, 0, windowWidth, windowHeight)
+  image(gameOver, 0, 0, windowWidth, windowHeight);
 }
 
 
