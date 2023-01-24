@@ -29,11 +29,12 @@ class Bullet {
       this.x -= bulletDx;
     }
     for (let i = 0; i < monsters.length; i++) {
-      if (collideRectRect(this.x, this.y, cellWidth, cellHeight, monsters[i].x, monsters[i].y, monsters[i].width, monsters[i].height)) {
+      if (collideRectRect(this.x, this.y, cellWidth, cellHeight, monsters[i].x, monsters[i].y, cellWidth, cellHeight)) {
+        console.log("yes")
           // delete the monster when a collision is detected
-          monsters.splice(i, 1);
-          this.delete();
-          break;
+        monsters.splice(i, 1);
+        this.delete();
+        break;
       }
     }
    

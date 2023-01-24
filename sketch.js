@@ -1,11 +1,11 @@
 
-
+//let playerName = prompt("Enter your name:");
 const ROWS = 30;
 const COLS = 30;
 let grid;
 let cellWidth;
 let cellHeight;
-
+let screen = "begin";
 let stoneImg;
 let grassImg;
 let survivorImg;
@@ -26,12 +26,19 @@ let monster2;
 let angle = 0;
 let popX;
 let popY;
-let bulletDx = 1;
-let bulletDy = 1;
+let bulletDx = 3;
+let bulletDy = 3;
 let monster;
 let monsters = [];
-let state = false;
-
+let state = "trial";
+let startScreen;
+let gameOver;
+let startSound;
+let idleSound;
+let endSound;
+let mute;
+let state1 = "yes"
+let volume;
 
 
 function preload(){
@@ -46,9 +53,14 @@ function preload(){
   chestImg = loadImage("chestb.png");
   dragonGif = loadImage("dragon.gif");
   interactE = loadImage("pickkup.webp");
-  
+  startScreen = loadImage("startscreen.jpg")
   monsterImg = loadImage("zombieWalk.gif");
-  
+  gameOver = loadImage("game-over.jpg");
+  startSound = loadSound("Startsound.mp3");
+  idleSound = loadSound("idleSound.mp3");
+  endSound = loadSound("end.mp3");
+  mute = loadImage("button.png");
+  volume = loadImage("volume.png")
   
   
 
@@ -77,31 +89,50 @@ function setup() {
 
 function draw() {
   background(220);
-  displayGrid(grid);
+  if (screen === "begin"){
+    if (state1 === "yes"){
+      start();
+    }
+    else if (state1 === "no"){
+      start1();
+    }
+  }
   
-  player1.update();
-  player1.display();
-  //updateHealth(player1.x, player1.y, health, maxHealth);
-  
-  // monster2.moveTowards(player1.x, player1.y, 0.005);
-  
-  for (let i = 0; i < monsters.length; i++) {
-    moveTowardsPlayer(monsters[i], player1);
-    monsters[i].display();
+  else if (screen === "idle"){
+    displayGrid(grid);
+    startSound.stop()
+    idleSound.playMode("UntilDone");
+    idleSound.play();
+    player1.update();
+    player1.display();
+    //updateHealth(player1.x, player1.y, health, maxHealth);
     
-    if (collideRectRect(player1.x, player1.y, cellWidth*0.5, cellHeight*0.5, monsters[i].x, monsters[i].y, cellWidth*0.5, cellHeight*0.5)) {
-      health-= 0.1;
+    // monster2.moveTowards(player1.x, player1.y, 0.005);
+    
+    for (let i = 0; i < monsters.length; i++) {
+      moveTowardsPlayer(monsters[i], player1);
+      monsters[i].display();
+      
+      if (collideRectRect(player1.x, player1.y, cellWidth*0.5, cellHeight*0.5, monsters[i].x, monsters[i].y, cellWidth*0.5, cellHeight*0.5)) {
+        health-= 0.1;
+      }
+      
+      if (popX && popY){
+        image(interactE, popX, popY, cellWidth,cellHeight);
+      }
     }
-    if (!monsters[i]>= 5){
-      state = true;
+    if (health <= 0){
+      screen = "end"
     }
-
+  }
+  else{
+    idleSound.stop()
+    endSound.playMode("UntilDone");
+    endSound.play();
+    end()
 
   }
-
-  // if (health <= 0){
-  //   alert("game over")
-  // }
+  
   
   // if (player1.state === true){
   //   push();
@@ -111,9 +142,6 @@ function draw() {
   //   pop();
     
   // }
-  if (popX && popY){
-    image(interactE, popX, popY, cellWidth,cellHeight);
-  }
 }
 
 
@@ -149,9 +177,22 @@ function keyPressed() {
 
 }
 
+
 function mousePressed() {
   
   // eslint-disable-next-line no-undef
+  
+  if (state1 === "yes" && mouseInsideRect(1275, 1350, 700, 770)){
+      
+      state1 = "no"
+  }
+  else if (state1 === "no" && mouseInsideRect(1275, 1350, 700, 770)){
+      state1 = "yes"
+  }
+  else if(!mouseInsideRect(1275, 1350, 700, 770)){
+    screen = "idle"
+  }
+  
   
   let someBullet = new Bullet(player1.x, player1.y, player1, bulletImg, player1.state);
   player1.bulletArray.push(someBullet);
@@ -208,11 +249,11 @@ function create2dArray(COLS, ROWS) {
   
 
 
-if (state === false){
-  setInterval(spawnMonster, 1000);
+
+setInterval(spawnMonster, 5000);
 
 
-}
+
 
 function spawnMonster() {
   let a;
@@ -230,8 +271,35 @@ function spawnMonster() {
 
   
 }
-  
 
+function start(){
+  startSound.stop()
+  image(startScreen, 0, 0, windowWidth, windowHeight)
+  textSize(32)
+  textFont("georgia")
+  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20)
+  fill("yellow")
+  image(mute, 1275, 700, 70, 70)
+  
+  
+}
+function start1(){
+  startSound.playMode("UntilDone");
+  startSound.play();
+  image(startScreen, 0, 0, windowWidth, windowHeight)
+  textSize(32)
+  textFont("georgia")
+  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20)
+  fill("yellow")
+  image(volume, 1275, 700, 70, 70)
+  
+}
+
+
+  
+function end(){
+  image(gameOver, 0, 0, windowWidth, windowHeight)
+}
 
 
 function noObstacleAt(a, b) {
@@ -383,5 +451,15 @@ function moveAlongPath(path) {
     monster.moveTo(path[0].x * cellWidth + cellWidth / 2, path[0].y * cellHeight + cellHeight / 2);
     path.shift();
   }
+}
+
+function loadProgress() {
+  let progress = startSound.bytesLoaded / startSound.bytesTotal;
+  console.log("Loading progress: " + progress);
+}
+
+
+function mouseInsideRect(left, right, top, bottom) {
+  return mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
 }
 

@@ -13,3 +13,5 @@ Put a description of what you're going to do here...
 - loot chest
 - health bar
 - timer
+- dynamite
+- switch weapons
