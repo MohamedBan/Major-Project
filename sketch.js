@@ -1,5 +1,4 @@
-
-//let playerName = prompt("Enter your name:");
+// my variables
 const ROWS = 30;
 const COLS = 30;
 let grid;
@@ -26,8 +25,8 @@ let monster2;
 let angle = 0;
 let popX;
 let popY;
-let bulletDx = 3;
-let bulletDy = 3;
+let bulletDx = 2;
+let bulletDy = 2;
 let monster;
 let monsters = [];
 let state = "trial";
@@ -38,9 +37,10 @@ let idleSound;
 let endSound;
 let mute;
 let state1 = "yes";
-let volume;
+let volume1;
 
 
+//loads images
 function preload(){
   stoneImg = loadImage("rock.png");
   grassImg = loadImage("grass.png");
@@ -60,35 +60,25 @@ function preload(){
   idleSound = loadSound("idleSound.mp3");
   endSound = loadSound("end.mp3");
   mute = loadImage("button.png");
-  volume = loadImage("volume.png");
-  
-  
-
+  volume1 = loadImage("volume.png");
 }
+
+
+//initalizes my grid and player
 function setup() {
   createCanvas(windowWidth, windowHeight);
   cellWidth = width/COLS;
   cellHeight = height/ROWS;
   grid = create2dArray(COLS, ROWS);
-  //place player in grid
-  // eslint-disable-next-line no-unde
-  
-  player1 = new Fighter(0, 0, survivorImg);
- 
-  //monster1 = new Monster(0, 0, monsterImg)
-  // monster2 = new Sprite(cellWidth, cellHeight,32, 32 );
-  // monster2.addAni("walk", monsterImg);
+  player1 = new Fighter(70, 45, survivorImg);
   console.log(survivMap1);
   grid = survivMap1;
-  //monster2.moveTowards(0.1,player1.x, player1.y, 0.001);
- 
-        
-  
-
 }
 
+
+
 function draw() {
-  background(220);
+  //displays background
   if (screen === "begin"){
     if (state1 === "yes"){
       start();
@@ -99,32 +89,37 @@ function draw() {
   }
   
   else if (screen === "idle"){
+    //plays sound
     displayGrid(grid);
     startSound.stop();
     idleSound.playMode("UntilDone");
     idleSound.play();
     player1.update();
     player1.display();
-    //updateHealth(player1.x, player1.y, health, maxHealth);
-    
-    // monster2.moveTowards(player1.x, player1.y, 0.005);
-    
+
+    //keeps on pathfinding for every monster
     for (let i = 0; i < monsters.length; i++) {
       moveTowardsPlayer(monsters[i], player1);
       monsters[i].display();
-      
+
+      //checks collision between monster and player
       if (collideRectRect(player1.x, player1.y, cellWidth*0.5, cellHeight*0.5, monsters[i].x, monsters[i].y, cellWidth*0.5, cellHeight*0.5)) {
         health-= 0.1;
       }
-      
+
+      //displays a "e" button near loot chest
       if (popX && popY){
         image(interactE, popX, popY, cellWidth,cellHeight);
       }
     }
+
+    //if healh is 0 switch state to game over
     if (health <= 0){
       screen = "end";
     }
   }
+
+  //plays sound and switch background
   else{
     idleSound.stop();
     endSound.playMode("UntilDone");
@@ -132,40 +127,26 @@ function draw() {
     end();
 
   }
-  
-  
-  // if (player1.state === true){
-  //   push();
-  //   translate(player1.x, player1.y);
-  //   rotate(player1.angle);
-    
-  //   pop();
-    
-  // }
 }
 
 
+// if you get near loot chest and press e depending on "a" you get extra speed
 function keyPressed() {
   let a = random(100);
-  if (key === "g"){
-    knifeGif.play();
-  }
   if(popX && popY && key === "e"){
     if(a<= 25){
-      player1.dx += 1;
+      player1.dx += 0.5;
     }
     else if(a<= 50){
-      player1.dy += 1;
+      player1.dy += 0.5;
     }
     else if(a<= 75){
-      bulletDx += 1;
+      bulletDx += 0.5;
     }
     else {
-      bulletDy += 1;
+      bulletDy += 0.5;
     }
     
-
-
     let xPos = (popX -10)/ cellWidth;
     let yPos = (popY +20)/ cellHeight;
     grid[yPos][xPos] = 0;
@@ -173,37 +154,34 @@ function keyPressed() {
     popY = undefined;
     
   }
-
-
 }
 
 
+// changes states and add new bullets
 function mousePressed() {
-  
-  // eslint-disable-next-line no-undef
-  
   if (state1 === "yes" && mouseInsideRect(1275, 1350, 700, 770)){
-      
     state1 = "no";
   }
+
   else if (state1 === "no" && mouseInsideRect(1275, 1350, 700, 770)){
     state1 = "yes";
   }
+
   else if(!mouseInsideRect(1275, 1350, 700, 770)){
     screen = "idle";
   }
   
-  
   let someBullet = new Bullet(player1.x, player1.y, player1, bulletImg, player1.state);
-  player1.bulletArray.push(someBullet);
-    
-  
+  player1.bulletArray.push(someBullet); 
 }
 
+
+
+// display images based on numbers on grid
 function displayGrid(grid) {
   for (let y=0; y<ROWS; y++) {
     for (let x=0; x<COLS; x++) {
-      //if close enough {
+
       if (grid[y][x] === 0) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
           
@@ -223,16 +201,14 @@ function displayGrid(grid) {
       else if (grid[y][x] === 9) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         player1.display();
-        player1.update();
-        
-        
-          
-        
+        player1.update(); 
       }
     }
   }
 }
 
+
+//makes grid depending on cols and rows
 function create2dArray(COLS, ROWS) {
   let emptyArray = [];
   for (let y=0; y<ROWS; y++) {
@@ -245,16 +221,12 @@ function create2dArray(COLS, ROWS) {
 }
 
 
-    
-  
+//spawn monster every 5 seconds
+setInterval(spawnMonster, 3000);
 
 
 
-setInterval(spawnMonster, 5000);
-
-
-
-
+// selects random location on grid if not a wall then add monster
 function spawnMonster() {
   let a;
   let b;
@@ -268,40 +240,10 @@ function spawnMonster() {
     a = random(width);
     b = random(height);
   }
-
-  
-}
-
-function start(){
-  startSound.stop();
-  image(startScreen, 0, 0, windowWidth, windowHeight);
-  textSize(32);
-  textFont("georgia");
-  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20);
-  fill("yellow");
-  image(mute, 1275, 700, 70, 70);
-  
-  
-}
-function start1(){
-  startSound.playMode("UntilDone");
-  startSound.play();
-  image(startScreen, 0, 0, windowWidth, windowHeight);
-  textSize(32);
-  textFont("georgia");
-  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20);
-  fill("yellow");
-  image(volume, 1275, 700, 70, 70);
-  
 }
 
 
-  
-function end(){
-  image(gameOver, 0, 0, windowWidth, windowHeight);
-}
-
-
+//if grid location is not a wall then return true
 function noObstacleAt(a, b) {
   
   if (grid[Math.floor(b/cellHeight)][Math.floor(a/cellWidth)] !== 1) {
@@ -312,18 +254,39 @@ function noObstacleAt(a, b) {
 } 
 
 
+// start screen with mute
+function start(){
+  startSound.stop();
+  image(startScreen, 0, 0, windowWidth, windowHeight);
+  textSize(32);
+  textFont("georgia");
+  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20);
+  fill("yellow");
+  image(mute, 1275, 700, 70, 70);
+} 
 
-// let walls = new Group();
-// for (let y = 0; y < ROWS; y++) {
-//   for (let x = 0; x < COLS; x++) {
-//     if (grid[y][x] === 1) {
-//       let wall = createSprite(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-//       wall.setCollider("rectangle", 0, 0, cellWidth, cellHeight);
-//       walls.add(wall);
-//     }
-//   }
-// }
 
+//start screen without mute
+function start1(){
+  startSound.playMode("UntilDone");
+  startSound.play();
+  image(startScreen, 0, 0, windowWidth, windowHeight);
+  textSize(32);
+  textFont("georgia");
+  text("click to start", windowWidth/2 - 90, windowHeight/2 + 20);
+  fill("yellow");
+  image(volume1, 1275, 700, 70, 70);
+  
+}  
+
+
+// game over screen 
+function end(){
+  image(gameOver, 0, 0, windowWidth, windowHeight);
+}  
+
+
+//pathfinding algorithim 
 function moveTowardsPlayer(monster, player) {
   let dx = player.x - monster.x;
   let dy = player.y - monster.y;
@@ -434,7 +397,8 @@ function moveTowardsPlayer(monster, player) {
     }
   }
 }
-        
+
+// Returns an array of objects with x,y properties of input node and its parents
 function reconstructPath(node) {
   let path = [];
   path.push({x: node.x, y: node.y});
@@ -453,12 +417,13 @@ function moveAlongPath(path) {
   }
 }
 
+//troubleshooting purposes
 function loadProgress() {
   let progress = startSound.bytesLoaded / startSound.bytesTotal;
   console.log("Loading progress: " + progress);
 }
 
-
+//checks if mouse is inside the paramters
 function mouseInsideRect(left, right, top, bottom) {
   return mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
 }

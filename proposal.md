@@ -8,10 +8,13 @@ Put a description of what you're going to do here...
 - sound
 - loading screen
 - game over screen
+- timer
+- health bar
 
 ## Nice To Have List
 - loot chest
-- health bar
-- timer
 - dynamite
 - switch weapons
+- inventory
+- leaderboard(local storage)
+- waves of monsters increasing with timer
