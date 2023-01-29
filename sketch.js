@@ -222,7 +222,7 @@ function create2dArray(COLS, ROWS) {
 
 
 //spawn monster every 5 seconds
-setInterval(spawnMonster, 3000);
+setInterval(spawnMonster, 1000);
 
 
 
