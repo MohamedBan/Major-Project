@@ -22,17 +22,17 @@ Put a description of what you're going to do here...
 
 ## Complete Game
 # 2 player
+- points
+- limited ammo
 - add inventory
 - add weapons
 - weapons spawn from loot chest
-- limited ammo
 - dynamite breaks walls
 - boss monsters
 - minor boss zombies
 - add animation
 - add flashlight
 - turns to darkness
-- points
 - add websockets
 # survival
 - add inventory
