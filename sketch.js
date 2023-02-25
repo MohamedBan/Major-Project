@@ -38,6 +38,8 @@ let endSound;
 let mute;
 let state1 = "yes";
 let volume1;
+let boss;
+let underling;
 
 
 //loads images
@@ -61,6 +63,8 @@ function preload(){
   endSound = loadSound("end.mp3");
   mute = loadImage("button.png");
   volume1 = loadImage("volume.png");
+  boss = loadImage("orc.png")
+  underling = loadImage("goblin4.png")
 }
 
 
@@ -154,6 +158,9 @@ function keyPressed() {
     popY = undefined;
     
   }
+  if (key === "g"){
+
+  }
 }
 
 
@@ -198,6 +205,14 @@ function displayGrid(grid) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         image(dragonGif, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
+      else if (grid[y][x] === 4) {
+        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        image(boss, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if (grid[y][x] === 5) {
+        image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        image(underling, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
       else if (grid[y][x] === 9) {
         image(grassImg, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         player1.display();
@@ -227,20 +242,20 @@ setInterval(spawnMonster, 1000);
 
 
 // selects random location on grid if not a wall then add monster
-function spawnMonster() {
-  let a;
-  let b;
-  a = random(width);
-  b = random(height);
-  // Check if the position is not in an obstacle
-  while (noObstacleAt(a, b)) {
-    let newMonster = new Monster(a, b, monsterImg);
-    monsters.push(newMonster);
-    moveTowardsPlayer(newMonster, player1);
-    a = random(width);
-    b = random(height);
-  }
-}
+// function spawnMonster() {
+//   let a;
+//   let b;
+//   a = random(width);
+//   b = random(height);
+//   // Check if the position is not in an obstacle
+//   while (noObstacleAt(a, b)) {
+//     let newMonster = new Monster(a, b, monsterImg);
+//     monsters.push(newMonster);
+//     moveTowardsPlayer(newMonster, player1);
+//     a = random(width);
+//     b = random(height);
+//   }
+// }
 
 
 //if grid location is not a wall then return true

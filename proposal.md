@@ -35,6 +35,7 @@ Put a description of what you're going to do here...
 - turns to darkness
 - add websockets
 # survival
+- different coloured chest depending on rarity and fighting boss monsters gives key
 - add inventory
 - add weapons
 - weapons spawn from loot chest
