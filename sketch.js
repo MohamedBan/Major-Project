@@ -241,21 +241,21 @@ setInterval(spawnMonster, 1000);
 
 
 
-// selects random location on grid if not a wall then add monster
-// function spawnMonster() {
-//   let a;
-//   let b;
-//   a = random(width);
-//   b = random(height);
-//   // Check if the position is not in an obstacle
-//   while (noObstacleAt(a, b)) {
-//     let newMonster = new Monster(a, b, monsterImg);
-//     monsters.push(newMonster);
-//     moveTowardsPlayer(newMonster, player1);
-//     a = random(width);
-//     b = random(height);
-//   }
-// }
+//selects random location on grid if not a wall then add monster
+function spawnMonster() {
+  let a;
+  let b;
+  a = random(width);
+  b = random(height);
+  // Check if the position is not in an obstacle
+  while (noObstacleAt(a, b)) {
+    let newMonster = new Monster(a, b, monsterImg);
+    monsters.push(newMonster);
+    moveTowardsPlayer(newMonster, player1);
+    a = random(width);
+    b = random(height);
+  }
+}
 
 
 //if grid location is not a wall then return true
